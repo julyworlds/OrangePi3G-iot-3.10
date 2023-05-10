@@ -1,0 +1,115 @@
+/*****************************************************************************
+ *------------------------------------------------------------------------------
+ * Upper this line, this part is controlled by CC/CQ. DO NOT MODIFY!!
+ *============================================================================
+ ****************************************************************************/
+ 
+/* SENSOR FULL SIZE */
+#ifndef __SENSOR_H
+#define __SENSOR_H
+
+typedef enum group_enum {
+    PRE_GAIN = 0,
+    CMMCLK_CURRENT,
+    FRAME_RATE_LIMITATION,
+    REGISTER_EDITOR,
+    GROUP_TOTAL_NUMS
+} FACTORY_GROUP_ENUM;
+
+#define ENGINEER_START_ADDR 10
+#define FACTORY_START_ADDR 0
+
+typedef enum engineer_index
+{
+    CMMCLK_CURRENT_INDEX = ENGINEER_START_ADDR,
+    ENGINEER_END
+} FACTORY_ENGINEER_INDEX;
+
+typedef enum register_index
+{
+    PRE_GAIN_INDEX = FACTORY_START_ADDR,
+    GLOBAL_GAIN_INDEX,
+    FACTORY_END_ADDR
+} FACTORY_REGISTER_INDEX;
+
+typedef struct
+{
+    SENSOR_REG_STRUCT Reg[ENGINEER_END];
+    SENSOR_REG_STRUCT CCT[FACTORY_END_ADDR];
+} SENSOR_DATA_STRUCT, *PSENSOR_DATA_STRUCT;
+
+#define CURRENT_MAIN_SENSOR T4K28_OMNIVISION
+
+/* SENSOR VGA SIZE */
+#define T4K28_IMAGE_SENSOR_PV_WIDTH (800)
+#define T4K28_IMAGE_SENSOR_PV_HEIGHT (600)
+
+/* SENSOR 2M SIZE */
+#define T4K28_IMAGE_SENSOR_FULL_WIDTH (1600-16)
+#define T4K28_IMAGE_SENSOR_FULL_HEIGHT (1200-14)
+
+#define T4K28_IMAGE_SENSOR_PV_STARTX 4
+#define T4K28_IMAGE_SENSOR_PV_STARTY 3
+
+#define T4K28_FULL_PERIOD_PIXEL_NUMS (3628)
+#define T4K28_FULL_PERIOD_LINE_NUMS (1536)
+
+#define T4K28_PV_PERIOD_PIXEL_NUMS (3628)
+#define T4K28_PV_PERIOD_LINE_NUMS (704)
+
+
+typedef enum {
+    SENSOR_MODE_INIT = 0,
+    SENSOR_MODE_PREVIEW,
+    SENSOR_MODE_CAPTURE,
+    SENSOR_MODE_VIDEO,
+    SENSOR_MODE_ZSD
+} T4K28YUV_SENSOR_MODE;
+
+
+/* SENSOR PIXEL/LINE NUMBERS IN ONE PERIOD */
+//#define T4K28_FULL_PERIOD_PIXEL_NUMS (1600)  // 2M mode's pixel # in one HSYNC w/o dummy pixels
+//#define T4K28_FULL_PERIOD_LINE_NUMS (1200)  // 2M mode's HSYNC # in one HSYNC w/o dummy lines
+//#define T4K28_PV_PERIOD_PIXEL_NUMS (800)    // VGA mode's pixel # in one HSYNC w/o dummy pixels
+//#define T4K28_PV_PERIOD_LINE_NUMS (600)   // VGAmode's HSYNC # in one HSYNC w/o dummy lines
+
+#define T4K28_FULL_PERIOD_PIXEL_NUMS_HTS (1302) 
+#define T4K28_FULL_PERIOD_LINE_NUMS_VTS (768) 
+#define T4K28_PV_PERIOD_PIXEL_NUMS_HTS (1043) 
+#define T4K28_PV_PERIOD_LINE_NUMS_VTS (511)   
+
+#define T4K28_IMAGE_SENSOR_2M_PIXELS_LINE T4K28_FULL_PERIOD_PIXEL_NUMS_HTS
+#define T4K28_IMAGE_SENSOR_720P_PIXELS_LINE T4K28_PV_PERIOD_PIXEL_NUMS_HTS
+
+//#define MAX_FRAME_RATE (15)
+//#define MIN_FRAME_RATE (12)
+
+/* SENSOR EXPOSURE LINE LIMITATION */
+#define T4K28_FULL_EXPOSURE_LIMITATION (1944-4)  // 5M mode
+#define T4K28_PV_EXPOSURE_LIMITATION (T4K28_PV_PERIOD_LINE_NUMS-4)  // # of lines in one 720P frame
+// SENSOR VGA SIZE
+//For 2x Platform camera_para.c used
+#define IMAGE_SENSOR_PV_WIDTH T4K28_IMAGE_SENSOR_PV_WIDTH
+#define IMAGE_SENSOR_PV_HEIGHT T4K28_IMAGE_SENSOR_PV_HEIGHT
+
+#define IMAGE_SENSOR_FULL_WIDTH T4K28_IMAGE_SENSOR_FULL_WIDTH
+#define IMAGE_SENSOR_FULL_HEIGHT T4K28_IMAGE_SENSOR_FULL_HEIGHT
+
+#define T4K28_SHUTTER_LINES_GAP 0
+
+#define T4K28_WRITE_ID (0x78)
+#define T4K28_READ_ID (0x79)
+
+// SENSOR CHIP VERSION
+#define T4K28_SENSOR_ID 0x0840
+  
+//export functions
+UINT32 T4K28YUVOpen(void);
+UINT32 T4K28YUVGetResolution(MSDK_SENSOR_RESOLUTION_INFO_STRUCT *pSensorResolution);
+UINT32 T4K28YUVGetInfo(MSDK_SCENARIO_ID_ENUM ScenarioId, MSDK_SENSOR_INFO_STRUCT *pSensorInfo, MSDK_SENSOR_CONFIG_STRUCT *pSensorConfigData);
+UINT32 T4K28YUVControl(MSDK_SCENARIO_ID_ENUM ScenarioId, MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT *pImageWindow, MSDK_SENSOR_CONFIG_STRUCT *pSensorConfigData);
+UINT32 T4K28YUVFeatureControl(MSDK_SENSOR_FEATURE_ENUM FeatureId, UINT8 *pFeaturePara,UINT32 *pFeatureParaLen);
+UINT32 T4K28YUVClose(void);
+
+#endif /* __SENSOR_H */
+
