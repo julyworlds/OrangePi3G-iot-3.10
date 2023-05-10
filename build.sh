@@ -1,1 +1,1 @@
-/home/juldiadia/OrangePi3G-iot/scripts/build.sh
+scripts/build.sh

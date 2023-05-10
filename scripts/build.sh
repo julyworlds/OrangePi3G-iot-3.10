@@ -29,7 +29,7 @@ METHOD="download"
 KERNEL_NAME="linux"
 UNTAR="bsdtar -xpf"
 CORES=$(nproc --ignore=1)
-PLATFORM="$(basename `pwd`)"
+PLATFORM="OrangePi3G-iot"
 
 if [[ "${EUID}" == 0 ]]; then
         :
