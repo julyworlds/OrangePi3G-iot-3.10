@@ -6,18 +6,16 @@
 /*********************
 * GPU Frequency List
 **********************/
-#define GPU_DVFS_D0     (565500)   // KHz
-#define GPU_DVFS_F0     (500500)   // KHz
-#define GPU_DVFS_F1     (416000)   // KHz
-#define GPU_DVFS_F2     (299000)   // KHz
+#define GPU_DVFS_F0     (800000)   // KHz
+#define GPU_DVFS_F1     (600000)   // KHz
+#define GPU_DVFS_F2     (400000)   // KHz
 
 #define GPU_LEVEL_INDEX (16)
 #define GPU_LEVEL_0     (0x1)
 /******************************
 * MFG Power Voltage Selection
 *******************************/
-#define GPU_VCORE_V0 (1250)
-#define GPU_VCORE_V1 (1150)
+#define GPU_VCORE_V1 (1140)
 
 /*****************************************
 * PMIC settle time, should not be changed

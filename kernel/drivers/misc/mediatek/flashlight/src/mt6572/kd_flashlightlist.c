@@ -18,7 +18,7 @@
 #include <asm/io.h>
 #include <asm/uaccess.h>
 #include "kd_camera_hw.h"
-#define CONFIG_COMPAT 1
+
 #define USE_UNLOCKED_IOCTL
 
 //s_add new flashlight driver here
@@ -32,9 +32,8 @@ MUINT32 constantFlashlightInit(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
 
 int strobe_getPartId(int sensorDev);
 MUINT32 subStrobeInit(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
-MUINT32 strobeInit_sub_sid1_part2(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
-MUINT32 strobeInit_main_sid1_part2(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
-
+MUINT32 subStrobeInit_2ndPart_2(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
+MUINT32 mainStrobeInit_2ndPart_2(PFLASHLIGHT_FUNCTION_STRUCT *pfFunc);
 
 KD_FLASHLIGHT_INIT_FUNCTION_STRUCT kdFlashlightList[] =
 {
@@ -128,7 +127,7 @@ MINT32 default_flashlight_release(void *pArg) {
     PK_DBG("[default_flashlight_release] E\n");
     return 0;
 }
-MINT32 default_flashlight_ioctl(unsigned int cmd, unsigned long arg) {
+MINT32 default_flashlight_ioctl(MUINT32 cmd, MUINT32 arg) {
     int i4RetValue = 0;
     int iFlashType = (int)FLASHLIGHT_NONE;
 
@@ -185,10 +184,10 @@ int kdSetFlashlightDrv(unsigned int *pSensorId)
 		defaultFlashlightInit(&g_pFlashlightFunc);
 
 #else
-		//@@if(partId==1)
+		if(partId==1)
 			constantFlashlightInit(&g_pFlashlightFunc);
-		//@@else //if(partId==2)
-			//@@strobeInit_main_sid1_part2(&g_pFlashlightFunc);
+		else //if(partId==2)
+			mainStrobeInit_2ndPart_2(&g_pFlashlightFunc);
 #endif
 	}
 	else if(*pSensorId==e_CAMERA_SUB_SENSOR && partId==1)
@@ -197,8 +196,7 @@ int kdSetFlashlightDrv(unsigned int *pSensorId)
 	}
 	else if(*pSensorId==e_CAMERA_SUB_SENSOR && partId==2)
 	{
-		//@@strobeInit_sub_sid1_part2(&g_pFlashlightFunc);
-
+		subStrobeInit_2ndPart_2(&g_pFlashlightFunc);
 	}
 	else
 	{
@@ -244,7 +242,7 @@ static int flashlight_ioctl(struct inode *inode, struct file *file, unsigned int
 	int partId;
     int i4RetValue = 0;
 
-    PK_DBG("XXflashlight_ioctl cmd,arg= %x, %lx +\n",cmd,(unsigned long)arg);
+    PK_DBG("XXflashlight_ioctl cmd,arg= %x, %x +\n",cmd,(unsigned int)arg);
 
     switch(cmd)
     {
@@ -290,12 +288,6 @@ static int flashlight_ioctl(struct inode *inode, struct file *file, unsigned int
     return i4RetValue;
 }
 
-static long my_ioctl_compat(struct file *filep, unsigned int cmd, unsigned long arg)
-{
-    return flashlight_ioctl(filep, cmd, arg);
-}
-
-
 static int flashlight_open(struct inode *inode, struct file *file)
 {
     int i4RetValue = 0;
@@ -326,9 +318,6 @@ static struct file_operations flashlight_fops = {
 #endif
     .open       = flashlight_open,
     .release    = flashlight_release,
-#ifdef CONFIG_COMPAT
-    .compat_ioctl = my_ioctl_compat,
-#endif
 };
 
 /*****************************************************************************

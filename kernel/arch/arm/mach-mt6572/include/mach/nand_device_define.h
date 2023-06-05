@@ -1,6 +1,6 @@
 #define NAND_ABTC_ATAG
 #define NAND_MAX_ID		7
-#define CHIP_CNT		2
+#define CHIP_CNT		7
 #define RAMDOM_READ		(1<<0)
 #define CACHE_READ		(1<<1)
 

@@ -284,11 +284,14 @@ static int netlink_set_ring(struct sock *sk, struct nl_mmap_req *req,
 
 		WARN_ON(atomic_read(&nlk->mapped));
 	}
+
 	mutex_unlock(&nlk->pg_vec_lock);
 
 	if (pg_vec)
 		free_pg_vec(pg_vec, order, req->nm_block_nr);
 	return err;
+
+	return -EBUSY;
 }
 
 static void netlink_mm_open(struct vm_area_struct *vma)

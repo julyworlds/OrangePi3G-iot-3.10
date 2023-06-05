@@ -1,33 +1,5 @@
-/*****************************************************************************
- *
- * Filename:
- * ---------
- *   sensor.h
- *
- * Project:
- * --------
- *   DUMA
- *
- * Description:
- * ------------
- *   Header file of Sensor driver
- *
- *
- * Author:
- * -------
- *   PC Huang (MTK02204)
- *
- *============================================================================
- *             HISTORY
- * Below this line, this part is controlled by CC/CQ. DO NOT MODIFY!!
- *------------------------------------------------------------------------------
- *------------------------------------------------------------------------------
- * Upper this line, this part is controlled by CC/CQ. DO NOT MODIFY!!
- *============================================================================
- ****************************************************************************/
-/* SENSOR FULL SIZE */
-   #ifndef __SENSOR_H
- #define __SENSOR_H
+#ifndef __SENSOR_H
+#define __SENSOR_H
 
 	//follow is define by jun
 	/* SENSOR READ/WRITE ID */

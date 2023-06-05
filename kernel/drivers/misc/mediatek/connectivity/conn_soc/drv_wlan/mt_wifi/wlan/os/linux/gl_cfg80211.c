@@ -2928,16 +2928,6 @@ int mtk_cfg80211_vendor_enable_scan(struct wiphy *wiphy, struct wireless_dev *wd
 
 	return 0;
 
-	/* only for test */
-	if (k % 3 == 1) {
-		mtk_cfg80211_vendor_event_significant_change_results(wiphy, wdev, NULL, 0);
-		mtk_cfg80211_vendor_event_hotlist_ap_found(wiphy, wdev, NULL, 0);
-		mtk_cfg80211_vendor_event_hotlist_ap_lost(wiphy, wdev, NULL, 0);
-	}
-	k++;
-
-	return 0;
-
 nla_put_failure:
 	return i4Status;
 }
@@ -2960,14 +2950,6 @@ int mtk_cfg80211_vendor_enable_full_scan_results(struct wiphy *wiphy, struct wir
 	if (attr->nla_type == GSCAN_ENABLE_FULL_SCAN_RESULTS)
 		gFullScanResultsEn = nla_get_u32(attr);
 	printk("gFullScanResultsEn=%d, \r\n", gFullScanResultsEn);
-
-	return 0;
-
-	/* only for test */
-	mtk_cfg80211_vendor_event_complete_scan(wiphy, wdev, WIFI_SCAN_COMPLETE);
-	mtk_cfg80211_vendor_event_scan_results_avaliable(wiphy, wdev, 4);
-	if (gFullScanResultsEn == TRUE)
-		mtk_cfg80211_vendor_event_full_scan_results(wiphy, wdev, NULL, 0);
 
 	return 0;
 
@@ -3099,25 +3081,9 @@ int mtk_cfg80211_vendor_get_channel_list(struct wiphy *wiphy, struct wireless_de
 	}
 
 	kalMemZero(channels, sizeof(wifi_channel) * 4);
-	/*rStatus = kalIoctl(prGlueInfo,
-	   wlanoidQueryStatistics,
-	   &channel,
-	   sizeof(channel),
-	   TRUE,
-	   TRUE,
-	   TRUE,
-	   FALSE,
-	   &u4BufLen); */
-
-	/* only for test */
-	num_channel = 3;
-	channels[0] = 2412;
-	channels[1] = 2413;
-	channels[2] = 2414;
-	NLA_PUT_U32(skb, GSCAN_ATTRIBUTE_NUM_CHANNELS, num_channel);
-	NLA_PUT(skb, GSCAN_ATTRIBUTE_CHANNEL_LIST, (sizeof(wifi_channel) * num_channel), channels);
 
 	i4Status = cfg80211_vendor_cmd_reply(skb);
+	return i4Status;
 
 nla_put_failure:
 	return i4Status;
@@ -3165,6 +3131,7 @@ int mtk_cfg80211_vendor_llstats_get_info(struct wiphy *wiphy, struct wireless_de
 	i4Status = cfg80211_vendor_cmd_reply(skb);
 
 	kalMemFree(pRadioStat, VIR_MEM_TYPE, u4BufLen);
+	return -1;
 
 nla_put_failure:
 	return i4Status;
@@ -3230,7 +3197,7 @@ int mtk_cfg80211_vendor_event_full_scan_results(struct wiphy *wiphy, struct wire
 
 	skb = cfg80211_vendor_event_alloc(wiphy, sizeof(result), GSCAN_EVENT_FULL_SCAN_RESULTS, GFP_KERNEL);
 
-#if 1
+#if 0
 	if (!skb) {
 		DBGLOG(INIT, TRACE, ("%s allocate skb failed\n", __func__));
 		return -ENOMEM;
@@ -3270,17 +3237,6 @@ int mtk_cfg80211_vendor_event_significant_change_results(struct wiphy *wiphy, st
 
 	presult = result;
 	kalMemZero(presult, (sizeof(PARAM_WIFI_CHANGE_RESULT) * 2));
-	/* only for test */
-	kalMemCopy(presult->bssid, "213123", sizeof(mac_addr));
-	presult->channel = 2437;
-	presult->rssi[0] = -45;
-	presult->rssi[1] = -46;
-	presult++;
-	presult->channel = 2439;
-	presult->rssi[0] = -47;
-	presult->rssi[1] = -48;
-	NLA_PUT(skb, GSCAN_EVENT_SIGNIFICANT_CHANGE_RESULTS, (sizeof(PARAM_WIFI_CHANGE_RESULT) * 2), result);
-
 	cfg80211_vendor_event(skb, GFP_KERNEL);
 	return 0;
 
@@ -3307,15 +3263,6 @@ int mtk_cfg80211_vendor_event_hotlist_ap_found(struct wiphy *wiphy, struct wirel
 
 	presult = result;
 	kalMemZero(presult, (sizeof(PARAM_WIFI_GSCAN_RESULT) * 2));
-	/* only for test */
-	kalMemCopy(presult->bssid, "123123", sizeof(mac_addr));
-	presult->channel = 2441;
-	presult->rssi = -45;
-	presult++;
-	presult->channel = 2443;
-	presult->rssi = -47;
-	NLA_PUT(skb, GSCAN_EVENT_HOTLIST_RESULTS_FOUND, (sizeof(PARAM_WIFI_GSCAN_RESULT) * 2), result);
-
 	cfg80211_vendor_event(skb, GFP_KERNEL);
 	return 0;
 
@@ -3342,15 +3289,6 @@ int mtk_cfg80211_vendor_event_hotlist_ap_lost(struct wiphy *wiphy, struct wirele
 
 	presult = result;
 	kalMemZero(presult, (sizeof(PARAM_WIFI_GSCAN_RESULT) * 2));
-	/* only for test */
-	kalMemCopy(presult->bssid, "321321", sizeof(mac_addr));
-	presult->channel = 2445;
-	presult->rssi = -46;
-	presult++;
-	presult->channel = 2447;
-	presult->rssi = -48;
-	NLA_PUT(skb, GSCAN_EVENT_HOTLIST_RESULTS_LOST, (sizeof(PARAM_WIFI_GSCAN_RESULT) * 2), result);
-
 	cfg80211_vendor_event(skb, GFP_KERNEL);
 	return 0;
 

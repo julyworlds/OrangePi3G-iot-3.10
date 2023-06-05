@@ -103,6 +103,7 @@ else
 						obj-$(CONFIG_MTK_LENS_LC898122AF_SUPPORT) += common/lc898122af/
 						obj-$(CONFIG_MTK_LENS_LC898212AF_SUPPORT)    += common/lc898212af/
 						obj-$(CONFIG_MTK_LENS_AK7345AF_SUPPORT)    += common/ak7345af/	                			
+						#obj-$(CONFIG_MTK_LENS_WV511AAF_SUPPORT)    += mt8163/wv511aaf/              			
 						endif
 					endif
 				endif

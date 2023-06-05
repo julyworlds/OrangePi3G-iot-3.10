@@ -2327,8 +2327,8 @@ static PMU_STATUS mt_battery_CheckBatteryTemp(void)
 
 #if defined(CONFIG_MTK_JEITA_STANDARD_SUPPORT)
 
-	battery_log(BAT_LOG_CRTI, "[BATTERY] support JEITA, temperature=%d\n",
-			    BMT_status.temperature);
+	//battery_log(BAT_LOG_CRTI, "[BATTERY] support JEITA, temperature=%d\n",
+			    //BMT_status.temperature);
 
 	if (do_jeita_state_machine() == PMU_STATUS_FAIL) {
 		battery_log(BAT_LOG_CRTI, "[BATTERY] JEITA : fail\n");
@@ -2813,8 +2813,8 @@ static void mt_battery_charger_detect_check(void)
 		}
 #endif
 
-		battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable in, CHR_Type_num=%d\r\n",
-				    BMT_status.charger_type);
+		//battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable in, CHR_Type_num=%d\r\n",
+				    //BMT_status.charger_type);
 
 	} else {
 		wake_unlock(&battery_suspend_lock);

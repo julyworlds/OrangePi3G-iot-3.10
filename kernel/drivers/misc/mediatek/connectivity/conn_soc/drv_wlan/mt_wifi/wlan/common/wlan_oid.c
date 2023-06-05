@@ -10046,15 +10046,15 @@ batchSetCmd(IN P_ADAPTER_T prAdapter, IN PVOID pvSetBuffer, IN UINT_32 u4SetBuff
 		}
 
 		/* set channel for test */
-#if 0
+#if 1
 		rCmdBatchReq.ucChannelType = 4;	/* SCAN_CHANNEL_SPECIFIED; */
 		rCmdBatchReq.ucChannelListNum = 0;
 		prRfChannelInfo = &rCmdBatchReq.arChannelList[0];
 		for (i = 1; i <= 14; i++) {
 
 			/* filter out some */
-			if (i == 1 || i == 5 || i == 11)
-				continue;
+			// if (i == 1 || i == 5 || i == 11)
+			// 	continue;
 
 			/* Translate Freq from MHz to channel number. */
 			prRfChannelInfo->ucChannelNum = i;
@@ -10356,7 +10356,7 @@ wlanoidSetGSCNAction(IN P_ADAPTER_T prAdapter,
 	prCmdPscnAction = (P_CMD_SET_PSCAN_ENABLE) pvSetBuffer;
 
 	if (prCmdPscnAction->ucPscanAct == ENABLE) {
-#if 0
+#if 1
 		DBGLOG(REQ, INFO, ("set  PCSN ENABLE \n"));
 		if (scnFsmPSCNAction(prAdapter, (UINT_8) (prCmdPscnAction->ucPscanAct)) == TRUE) {
 
@@ -10370,7 +10370,7 @@ wlanoidSetGSCNAction(IN P_ADAPTER_T prAdapter,
 #endif
 		scnPSCNFsm(prAdapter, PSCN_SCANNING, NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, TRUE);
 	} else if (prCmdPscnAction->ucPscanAct == DISABLE) {
-#if 0
+#if 1
 		DBGLOG(REQ, INFO, ("disable PCSN \n"));
 		scnFsmPSCNAction(prAdapter, (UINT_8) DISABLE);
 

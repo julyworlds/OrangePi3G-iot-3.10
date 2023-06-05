@@ -26,6 +26,7 @@
 #include <mach/mtk_memcfg.h>
 #include <mach/mtk_meminfo.h>
 #include <linux/mrdump.h>
+#include "nand_device_list.h"
 
 #define SERIALNO_LEN 32
 static char serial_number[SERIALNO_LEN];
@@ -1032,8 +1033,9 @@ int __init parse_tag_partition_fixup(const struct tag *tags)
 int __init parse_tag_flashnum_fixup(const struct tag *tags)
 {
 	
-    flash_number = tags->u.tag_nand_number.number;
+	flash_number = CHIP_CNT;
 	//gen_FlashTable_p = (flashdev_info*) kzalloc(flash_number*sizeof(flashdev_info), GFP_KERNEL);
+	memcpy(gen_FlashTable_p, gen_FlashTable, sizeof(flashdev_info_t)*CHIP_CNT);
 	gen_FlashTable_ptr = gen_FlashTable_p;
 	return 0;
 }

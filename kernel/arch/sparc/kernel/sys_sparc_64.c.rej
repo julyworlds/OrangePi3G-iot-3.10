@@ -1,0 +1,11 @@
+--- arch/sparc/kernel/sys_sparc_64.c
++++ arch/sparc/kernel/sys_sparc_64.c
+@@ -336,7 +336,7 @@
+ 	long err;
+ 
+ 	/* No need for backward compatibility. We can start fresh... */
+-	if (call <= SEMCTL) {
++	if (call <= SEMTIMEDOP) {
+ 		switch (call) {
+ 		case SEMOP:
+ 			err = sys_semtimedop(first, ptr,

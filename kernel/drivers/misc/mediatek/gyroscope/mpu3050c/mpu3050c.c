@@ -156,7 +156,7 @@ static struct i2c_client *mpu3000_i2c_client = NULL;
 static struct platform_driver mpu3000_gyro_driver;
 static struct mpu3000_i2c_data *obj_i2c_data = NULL;
 static bool sensor_power = false;
-static bool sensor_data_ready = true;
+
 
 
 /*----------------------------------------------------------------------------*/
@@ -364,14 +364,6 @@ static int MPU3000_SetPowerMode(struct i2c_client *client, bool enable)
 	}
 
 	sensor_power = enable;
-
-	if(enable)
-	{
-		sensor_data_ready = false;
-		GYRO_ERR("mdelay (50) !\n");
-		mdelay(50);
-		sensor_data_ready= true;
-	}
 	
 	return MPU3000_SUCCESS;    
 }
@@ -656,7 +648,7 @@ static int MPU3000_ReadFifoData(struct i2c_client *client, s16 *data, int* datal
 	}
 	else
 	{
-		GYRO_ERR("MPU3000 Incorrect packet count: %zu\n", packet_cnt);
+		GYRO_ERR("MPU3000 Incorrect packet count: %d\n", packet_cnt);
 		return -3;
 	}
 
@@ -674,12 +666,6 @@ static int MPU3000_ReadGyroData(struct i2c_client *client, char *buf, int bufsiz
 	{
 		MPU3000_SetPowerMode(client, true);
 		msleep(50);
-	}
-
-	if(!sensor_data_ready)
-	{
-		GYRO_ERR("MPU3000 gyroscope data not ready\n");
-		return -2;
 	}
 
 	if(hwmsen_read_block(client, MPU3000_REG_GYRO_XH, databuf, 6))
@@ -986,7 +972,7 @@ static ssize_t store_trace_value(struct device_driver *ddri, const char *buf, si
 	}	
 	else
 	{
-		GYRO_ERR("invalid content: '%s', length = %zu\n", buf, count);
+		GYRO_ERR("invalid content: '%s', length = %d\n", buf, count);
 	}
 	
 	return count;    
@@ -1641,28 +1627,6 @@ static int mpu3000_remove(struct platform_device *pdev)
     return 0;
 }
 /*----------------------------------------------------------------------------*/
-#if 1
-#ifdef CONFIG_OF
-static const struct of_device_id gyroscope_of_match[] = {
-	{ .compatible = "mediatek,gyroscope", },
-	{},
-};
-#endif
-
-static struct platform_driver mpu3000_gyro_driver = {
-	.probe      = mpu3000_probe,
-	.remove     = mpu3000_remove,    
-	.driver     = 
-	{
-		.name  = "gyroscope",
-	//	.owner  = THIS_MODULE,
-        #ifdef CONFIG_OF
-		.of_match_table = gyroscope_of_match,
-		#endif
-	}
-};
-#else
-
 static struct platform_driver mpu3000_gyro_driver = {
 	.probe      = mpu3000_probe,
 	.remove     = mpu3000_remove,    
@@ -1671,7 +1635,7 @@ static struct platform_driver mpu3000_gyro_driver = {
 //		.owner = THIS_MODULE,//modified
 	}
 };
-#endif
+
 /*----------------------------------------------------------------------------*/
 static int __init mpu3000_init(void)
 {

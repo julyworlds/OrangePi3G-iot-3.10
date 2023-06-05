@@ -26,6 +26,7 @@ obj-$(CONFIG_MTK_CIRQ) += cirq/
 endif
 
 obj-$(CONFIG_MTK_IRQ) += irq/
+#obj-$(CONFIG_MTK_CPU_STRESS)	+= cpu_stress/
 obj-$(CONFIG_MTK_LASTPC)	    += lastpc/
 obj-$(CONFIG_MTK_DBG_DUMP) += dbg_dump/
 
@@ -274,6 +275,7 @@ obj-$(CONFIG_MTK_SWITCH_TX_POWER) += sw_tx_power/
 obj-$(CONFIG_MTK_BTIF)	+= btif/
 obj-$(CONFIG_MTK_POWER_GS)	+= power_gs/
 obj-$(CONFIG_MTK_VIDEO) += video/
+obj-$(CONFIG_MTK_AEE_MRDUMP)	+= mrdump/
 obj-$(CONFIG_MTK_WMT_CCCI)	+= wmt_ccci/
 obj-$(CONFIG_MTK_VCOREFS)	+= vcorefs/
 
@@ -313,7 +315,7 @@ obj-$(CONFIG_MTK_MULTIBRIDGE_SUPPORT) += multibridge/
 #widevine drm
 #Classic DRM
 $(info "CONFIG_TRUSTONIC_TEE_SUPPORT = $(CONFIG_TRUSTONIC_TEE_SUPPORT)")
-#obj-$(CONFIG_TRUSTONIC_TEE_SUPPORT) += secwidevine/
+obj-$(CONFIG_TRUSTONIC_TEE_SUPPORT) += secwidevine/
 
 ifneq (,$(filter $(CONFIG_MTK_PLATFORM), "mt2601"))
 ifneq ($(CONFIG_CUSTOM_KERNEL_SENSORHUB),"")

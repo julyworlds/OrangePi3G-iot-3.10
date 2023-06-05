@@ -136,8 +136,7 @@ skip:
 		 * at the start of the first node
 		 */
 		if (!rec && new_node != node)
-			hfs_brec_update_parent(fd);
-
+		hfs_brec_update_parent(fd);
 		hfs_bnode_put(fd->bnode);
 		if (!new_node->parent) {
 			hfs_btree_inc_height(tree);

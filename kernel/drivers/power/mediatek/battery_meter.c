@@ -1949,9 +1949,9 @@ int force_get_tbat(kal_bool update)
 			bat_temperature_val = BattVoltToTemp(bat_temperature_volt);
 		}
 
-	bm_print(BM_LOG_CRTI, "[force_get_tbat] %d,%d,%d,%d,%d,%d\n",
+	/* bm_print(BM_LOG_CRTI, "[force_get_tbat] %d,%d,%d,%d,%d,%d\n",
 		 bat_temperature_volt_temp, bat_temperature_volt, fg_current_state, fg_current_temp,
-		 fg_r_value, bat_temperature_val);
+		 fg_r_value, bat_temperature_val); */
 		pre_bat_temperature_val = bat_temperature_val;
 	} else {
 		bat_temperature_val = pre_bat_temperature_val;
@@ -3035,7 +3035,7 @@ void oam_init(void)
 		oam_init_i = 1;
 	}
 
-	bm_print(BM_LOG_CRTI, "[oam_init] %d,%d,%d,%d,%d,%d\n",
+	/* bm_print(BM_LOG_CRTI, "[oam_init] %d,%d,%d,%d,%d,%d\n",
 		 oam_v_ocv_1, oam_v_ocv_2, oam_r_1, oam_r_2, oam_d0, oam_i_ori);
 
 	bm_print(BM_LOG_CRTI, "[oam_init_inf] hw_OCV, hw_D0, RTC, D0, oam_OCV_init, tbat\n");
@@ -3046,7 +3046,7 @@ void oam_init(void)
 
 	bm_print(BM_LOG_CRTI, "[oam_init_inf] %d, %d, %d, %d, %d, %d\n",
 		 gFG_voltage, (100 - fgauge_read_capacity_by_v(gFG_voltage)), g_rtc_fg_soc,
-		 gFG_DOD0, oam_v_ocv_init, force_get_tbat(KAL_FALSE));
+		 gFG_DOD0, oam_v_ocv_init, force_get_tbat(KAL_FALSE)); */
 
 }
 

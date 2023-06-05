@@ -1,45 +1,5 @@
-/*****************************************************************************
- *
- * Filename:
- * ---------
- *   sensor.h
- *
- * Project:
- * --------
- *   DUMA
- *
- * Description:
- * ------------
- *   Header file of camera customized parameters.
- *
- *
- * Author:
- * -------
- *   PC Huang (MTK02204)
- *
- *============================================================================
- *             HISTORY
- * Below this line, this part is controlled by CC/CQ. DO NOT MODIFY!!
- *------------------------------------------------------------------------------
- * $Revision:$
- * $Modtime:$
- * $Log:$
- *
- * 07 11 2011 jun.pei
- * [ALPS00059464] hi707 sensor check in
- * .
- *
- * .
- * Add HI707 YUV sensor driver support
- *
- *
- *------------------------------------------------------------------------------
- * Upper this line, this part is controlled by CC/CQ. DO NOT MODIFY!!
- *============================================================================
- ****************************************************************************/
-
 #ifndef __CAMERA_CUSTOMIZED_H
-  #define __CAMERA_CUSTOMIZED_H
+#define __CAMERA_CUSTOMIZED_H
 
 // the angle between handset and sensor placement in clockwise, should be one of 0, 90, 270
 #define MAIN_SENSOR_ORIENTATION_ANGLE	90

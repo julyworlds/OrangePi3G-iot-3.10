@@ -255,15 +255,15 @@ static int esd_recovery_kthread(void *data)
 {
     //struct sched_param param = { .sched_priority = RTPM_PRIO_SCRN_UPDATE };
     //sched_setscheduler(current, SCHED_RR, &param);
-    MTKFB_INFO("enter esd_recovery_kthread()\n");
+    //MTKFB_INFO("enter esd_recovery_kthread()\n");
     for( ;; ) {
 
         if (kthread_should_stop())
             break;
 
-        MTKFB_INFO("sleep start in esd_recovery_kthread()\n");
+        //MTKFB_INFO("sleep start in esd_recovery_kthread()\n");
         msleep(2000);       //2s
-        MTKFB_INFO("sleep ends in esd_recovery_kthread()\n");
+        //MTKFB_INFO("sleep ends in esd_recovery_kthread()\n");
 
         if(!esd_kthread_pause)
         {
@@ -273,15 +273,15 @@ static int esd_recovery_kthread(void *data)
                 continue;
             }
             ///execute ESD check and recover flow
-            MTKFB_INFO("DISP_EsdCheck starts\n");
+            //MTKFB_INFO("DISP_EsdCheck starts\n");
             need_esd_check = 1;
             wait_event_interruptible(esd_check_wq, !need_esd_check);
-            MTKFB_INFO("DISP_EsdCheck ends\n");
+            //MTKFB_INFO("DISP_EsdCheck ends\n");
        }
     }
 
 
-    MTKFB_INFO("exit esd_recovery_kthread()\n");
+    //MTKFB_INFO("exit esd_recovery_kthread()\n");
     return 0;
 }
 
@@ -1091,7 +1091,7 @@ static int mtkfb_set_overlay_layer(struct fb_info *info, struct fb_overlay_layer
 
     if(fbdev->layer_enable & ((1 << VIDEO_LAYER_COUNT)-1)){
         if (DISP_STATUS_OK == DISP_EnterOverlayMode()) {
-            MTKFB_INFO("mtkfb_ioctl(MTKFB_ENABLE_OVERLAY)\n");
+            //MTKFB_INFO("mtkfb_ioctl(MTKFB_ENABLE_OVERLAY)\n");
         }
     }
 
@@ -1308,7 +1308,7 @@ LeaveOverlayMode:
     {
         if (DISP_STATUS_OK == DISP_LeaveOverlayMode())
         {
-            MTKFB_INFO("mtkfb_ioctl(MTKFB_DISABLE_OVERLAY)\n");
+            //MTKFB_INFO("mtkfb_ioctl(MTKFB_DISABLE_OVERLAY)\n");
             if(fblayer_dither_needed)
             {
                 DISP_ConfigDither(14, 14, 14, dbr_backup, dbg_backup, dbb_backup);
@@ -1771,7 +1771,7 @@ static int mtkfb_ioctl(struct file *file, struct fb_info *info, unsigned int cmd
 
     case MTKFB_TRIG_OVERLAY_OUT:
 	{
-        MTKFB_IOCTL(" mtkfb_ioctl():MTKFB_TRIG_OVERLAY_OUT\n");
+        //MTKFB_IOCTL(" mtkfb_ioctl():MTKFB_TRIG_OVERLAY_OUT\n");
         MMProfileLog(MTKFB_MMP_Events.TrigOverlayOut, MMProfileFlagPulse);
         return mtkfb_update_screen(info);
 	}

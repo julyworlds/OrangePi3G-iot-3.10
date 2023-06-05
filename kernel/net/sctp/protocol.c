@@ -1449,7 +1449,6 @@ SCTP_STATIC __init int sctp_init(void)
 	sctp_v6_pf_init();
 
 	status = sctp_v4_protosw_init();
-
 	if (status)
 		goto err_protosw_init;
 
@@ -1459,7 +1458,7 @@ SCTP_STATIC __init int sctp_init(void)
 
 	status = register_pernet_subsys(&sctp_net_ops);
 	if (status)
-		goto err_register_pernet_subsys;
+		goto err_register_ctrlsock;
 
 	status = sctp_v4_add_protocol();
 	if (status)

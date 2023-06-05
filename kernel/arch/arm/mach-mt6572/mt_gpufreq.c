@@ -72,11 +72,11 @@ static struct early_suspend mt_gpufreq_early_suspend_handler =
 * MT6572 GPU Power Table
 ****************************/
 static struct mt_gpufreq_power_info mt_gpufreqs_golden_power[] = {
-    {.gpufreq_khz = GPU_DVFS_F0, .gpufreq_volt = GPU_VCORE_V0, .gpufreq_power = 326},
-    {.gpufreq_khz = GPU_DVFS_F1, .gpufreq_volt = GPU_VCORE_V0, .gpufreq_power = 276},
+    {.gpufreq_khz = GPU_DVFS_F0, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 326},
+    {.gpufreq_khz = GPU_DVFS_F1, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 276},
     {.gpufreq_khz = GPU_DVFS_F0, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 274},
     {.gpufreq_khz = GPU_DVFS_F1, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 232},
-    {.gpufreq_khz = GPU_DVFS_F2, .gpufreq_volt = GPU_VCORE_V0, .gpufreq_power = 206},
+    {.gpufreq_khz = GPU_DVFS_F2, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 206},
     {.gpufreq_khz = GPU_DVFS_F2, .gpufreq_volt = GPU_VCORE_V1, .gpufreq_power = 172},
 };
 //OPP setting
@@ -84,6 +84,12 @@ static struct mt_gpufreq_power_info mt_gpufreqs_golden_power[] = {
 static const struct mt_gpufreq_info mt6572_gpufreq[] = {
     {.gpufreq_khz = GPU_DVFS_F0,
      .gpufreq_lower_bound = 30,
+     .gpufreq_upper_bound = 100,
+     .gpufreq_volt = GPU_VCORE_V1,
+     .gpufreq_remap = 100,
+    },
+    {.gpufreq_khz = GPU_DVFS_F1,
+     .gpufreq_lower_bound = 0,
      .gpufreq_upper_bound = 100,
      .gpufreq_volt = GPU_VCORE_V1,
      .gpufreq_remap = 100,

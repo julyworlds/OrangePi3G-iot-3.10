@@ -147,15 +147,16 @@ struct mt_cpu_power_info
 * MT6572 E1 DVFS Table
 ****************************/
 static struct mt_cpu_freq_info mt6572_freqs_e1[] = {
-    OP(DVFS_D2, DVFS_V0),
-    OP(DVFS_D3, DVFS_V0),
+    OP(DVFS_D1, DVFS_V1),
+    OP(DVFS_D2, DVFS_V1),
+    OP(DVFS_D3, DVFS_V1),
     OP(DVFS_F1, DVFS_V1),
     OP(DVFS_F2, DVFS_V1),
     OP(DVFS_F3, DVFS_V1),
 };
 
 static struct mt_cpu_freq_info mt6572_freqs_e1_1[] = {
-    OP(DVFS_D3, DVFS_V0),
+    OP(DVFS_D3, DVFS_V1),
     OP(DVFS_F1, DVFS_V1),
     OP(DVFS_F2, DVFS_V1),
     OP(DVFS_F3, DVFS_V1),
@@ -174,16 +175,14 @@ static struct mt_cpu_tbl_info spm_pmic_config[MAX_SPM_PMIC_TBL];
 static unsigned int cpu_num = 0;
 /* Power Golden table */
 static struct mt_cpu_power_info mt_cpu_golden_power[] = {
-    {.cpufreq_khz = DVFS_D0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 724 },
-    {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 653 },
-    {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 618 },
-    {.cpufreq_khz = DVFS_D3, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 582 },
-    {.cpufreq_khz = DVFS_D0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 423 },
+    {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 653 },
+    {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 618 },
+    {.cpufreq_khz = DVFS_D3, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 582 },
     {.cpufreq_khz = DVFS_F1, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 422 },
-    {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 383 },
-    {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 363 },
+    {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 1, .cpufreq_power = 383 },
+    {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 1, .cpufreq_power = 363 },
     {.cpufreq_khz = DVFS_F2, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 362 },
-    {.cpufreq_khz = DVFS_D3, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 343 },
+    {.cpufreq_khz = DVFS_D3, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 1, .cpufreq_power = 343 },
     {.cpufreq_khz = DVFS_F3, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 302 },
     {.cpufreq_khz = DVFS_F1, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 1, .cpufreq_power = 249 },
     {.cpufreq_khz = DVFS_F2, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 1, .cpufreq_power = 215 },

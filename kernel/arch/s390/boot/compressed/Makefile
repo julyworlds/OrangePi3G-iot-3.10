@@ -46,6 +46,7 @@ $(obj)/vmlinux.bin: vmlinux
 
 vmlinux.bin.all-y := $(obj)/vmlinux.bin
 
+suffix-$(CONFIG_KERNEL_LZ4)  := lz4
 suffix-$(CONFIG_KERNEL_GZIP)  := gz
 suffix-$(CONFIG_KERNEL_BZIP2) := bz2
 suffix-$(CONFIG_KERNEL_LZMA)  := lzma

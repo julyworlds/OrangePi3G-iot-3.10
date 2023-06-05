@@ -36,16 +36,16 @@
 ******************************************************************************/
 #define TAG_NAME "[dummy_flashlight.c]"
 #define PK_DBG_NONE(fmt, arg...)    do {} while (0)
-#define PK_DBG_FUNC(fmt, arg...)    pr_debug(ANDROID_LOG_DEBUG  , TAG_NAME, KERN_INFO  "%s: " fmt, __FUNCTION__ ,##arg)
-#define PK_WARN(fmt, arg...)        pr_debug(ANDROID_LOG_WARNING, TAG_NAME, KERN_WARNING  "%s: " fmt, __FUNCTION__ ,##arg)
-#define PK_NOTICE(fmt, arg...)      pr_debug(ANDROID_LOG_DEBUG  , TAG_NAME, KERN_NOTICE  "%s: " fmt, __FUNCTION__ ,##arg)
-#define PK_INFO(fmt, arg...)        pr_debug(ANDROID_LOG_INFO   , TAG_NAME, KERN_INFO  "%s: " fmt, __FUNCTION__ ,##arg)
-#define PK_TRC_FUNC(f)              pr_debug(ANDROID_LOG_DEBUG  , TAG_NAME,  "<%s>\n", __FUNCTION__);
-#define PK_TRC_VERBOSE(fmt, arg...) pr_debug(ANDROID_LOG_VERBOSE, TAG_NAME,  fmt, ##arg)
-#define PK_ERROR(fmt, arg...)       pr_debug(ANDROID_LOG_ERROR  , TAG_NAME, KERN_ERR "%s: " fmt, __FUNCTION__ ,##arg)
+#define PK_DBG_FUNC(fmt, arg...)    xlog_printk(ANDROID_LOG_DEBUG  , TAG_NAME, KERN_INFO  "%s: " fmt, __FUNCTION__ ,##arg)
+#define PK_WARN(fmt, arg...)        xlog_printk(ANDROID_LOG_WARNING, TAG_NAME, KERN_WARNING  "%s: " fmt, __FUNCTION__ ,##arg)
+#define PK_NOTICE(fmt, arg...)      xlog_printk(ANDROID_LOG_DEBUG  , TAG_NAME, KERN_NOTICE  "%s: " fmt, __FUNCTION__ ,##arg)
+#define PK_INFO(fmt, arg...)        xlog_printk(ANDROID_LOG_INFO   , TAG_NAME, KERN_INFO  "%s: " fmt, __FUNCTION__ ,##arg)
+#define PK_TRC_FUNC(f)              xlog_printk(ANDROID_LOG_DEBUG  , TAG_NAME,  "<%s>\n", __FUNCTION__);
+#define PK_TRC_VERBOSE(fmt, arg...) xlog_printk(ANDROID_LOG_VERBOSE, TAG_NAME,  fmt, ##arg)
+#define PK_ERROR(fmt, arg...)       xlog_printk(ANDROID_LOG_ERROR  , TAG_NAME, KERN_ERR "%s: " fmt, __FUNCTION__ ,##arg)
 
 
-//#define DEBUG_LEDS_STROBE
+#define DEBUG_LEDS_STROBE
 #ifdef  DEBUG_LEDS_STROBE
 	#define PK_DBG PK_DBG_FUNC
 	#define PK_VER PK_TRC_VERBOSE
@@ -79,7 +79,7 @@ static struct cdev strobe_cdev;
 /*****************************************************************************
 User interface
 *****************************************************************************/
-static int dummy_flashlight_ioctl(unsigned int cmd, unsigned long arg)
+static int dummy_flashlight_ioctl(MUINT32 cmd, MUINT32 arg)
 {
     int i4RetValue = 0;
     int iFlashType = (int)FLASHLIGHT_NONE;

@@ -478,6 +478,10 @@ config MTK_CM36283
 	bool "CM36283 for MediaTek package"
 	default n
 
+config MTK_AP3220
+	bool "AP3220 for MediaTek package"
+	default n
+
 config MTK_GP2AP002S00F
 	bool "GP2AP002S00F for MediaTek package"
 	default n
@@ -522,6 +526,14 @@ config MTK_APDS9930_NEW
 # Accelerometer sensor
 config MTK_KXTJ2_1009
 	bool "KXTJ2 1009 for MediaTek package"
+	default n
+
+config MTK_KXTJ2_AUTO
+	bool "KXTJ2 AUTO for MediaTek package"
+	default n
+
+config MTK_BMA222E250E_AUTO
+	bool "BMA222E250E AUTO for MediaTek package"
 	default n
 
 config MTK_KXTIK1004

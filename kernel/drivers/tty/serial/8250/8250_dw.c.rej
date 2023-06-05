@@ -1,0 +1,14 @@
+--- drivers/tty/serial/8250/8250_dw.c
++++ drivers/tty/serial/8250/8250_dw.c
+@@ -131,7 +134,10 @@
+ 			dw8250_force_idle(p);
+ 			writel(value, p->membase + (UART_LCR << p->regshift));
+ 		}
+-		dev_err(p->dev, "Couldn't set LCR to %d\n", value);
++		/*
++		 * FIXME: this deadlocks if port->lock is already held
++		 * dev_err(p->dev, "Couldn't set LCR to %d\n", value);
++		 */
+ 	}
+ }
+ 

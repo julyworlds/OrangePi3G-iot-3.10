@@ -77,3 +77,11 @@ endif
 ifeq ($(CONFIG_MTK_LSM6DS3),y)
 obj-y   +=  lsm6ds3/
 endif
+
+ifeq ($(CONFIG_MTK_BMA222E250E_AUTO),y)
+obj-y   +=  bma222e250e_auto/
+endif
+
+ifeq ($(CONFIG_MTK_KXTJ2_AUTO),y)
+obj-y   +=  kxtj2_auto/
+endif

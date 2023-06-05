@@ -524,7 +524,6 @@ gigaset_tty_open(struct tty_struct *tty)
 	cs->hw.ser->tty = tty;
 	atomic_set(&cs->hw.ser->refcnt, 1);
 	init_completion(&cs->hw.ser->dead_cmp);
-
 	tty->disc_data = cs;
 
 	/* OK.. Initialization of the datastructures and the HW is done.. Now

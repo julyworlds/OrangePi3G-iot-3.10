@@ -1212,8 +1212,8 @@ static int tpd_history_x = 0, tpd_history_y;
 static void tpd_down(s32 x, s32 y, s32 size, s32 id)
 {
 	if ((!size) && (!id)) {
-		input_report_abs(tpd->dev, ABS_MT_PRESSURE, 100);
-		input_report_abs(tpd->dev, ABS_MT_TOUCH_MAJOR, 100);
+		//input_report_abs(tpd->dev, ABS_MT_PRESSURE, 100);
+		//input_report_abs(tpd->dev, ABS_MT_TOUCH_MAJOR, 100);
 	} else {
 		input_report_abs(tpd->dev, ABS_MT_PRESSURE, size);
 		input_report_abs(tpd->dev, ABS_MT_TOUCH_MAJOR, size);

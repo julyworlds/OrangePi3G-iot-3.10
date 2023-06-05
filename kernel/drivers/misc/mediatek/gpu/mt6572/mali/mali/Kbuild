@@ -16,7 +16,7 @@
 include $(src)/Kbuild-mtk-custom-env
 
 TIMESTAMP ?= default
-OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB ?= 16
+OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB ?= 45
 USING_GPU_UTILIZATION ?= 1
 PROFILING_SKIP_PP_JOBS ?= 0
 PROFILING_SKIP_PP_AND_GP_JOBS ?= 0
@@ -141,7 +141,7 @@ mali-$(CONFIG_MALI400_POWER_PERFORMANCE_POLICY) += common/mali_power_performance
 # Tell the Linux build system from which .o file to create the kernel module
 obj-$(CONFIG_MALI400) := mali.o
 
-ccflags-y += $(EXTRA_DEFINES)
+ccflags-y += $(EXTRA_DEFINES) $(OPTIM)
 
 # Set up our defines, which will be passed to gcc
 ccflags-y += -DPROFILING_SKIP_PP_JOBS=$(PROFILING_SKIP_PP_JOBS)

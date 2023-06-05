@@ -1,34 +1,3 @@
-/*****************************************************************************
- *
- * Filename:
- * ---------
- *   gc0329yuv_Sensor.c
- *
- * Project:
- * --------
- *   MAUI
- *
- * Description:
- * ------------
- *   Image sensor driver function
- *   V1.2.3
- *
- * Author:
- * -------
- *   LANKING
- *
- *=============================================================
- *             HISTORY
- * Below this line, this part is controlled by GCoreinc. DO NOT MODIFY!!
- *------------------------------------------------------------------------------
- * $Log$
- * 2013.01.23  kill bugs
- *   
- *
- *------------------------------------------------------------------------------
- * Upper this line, this part is controlled by GCoreinc. DO NOT MODIFY!!
- *=============================================================
- ******************************************************************************/
 #include <linux/videodev2.h>
 #include <linux/i2c.h>
 #include <linux/platform_device.h>

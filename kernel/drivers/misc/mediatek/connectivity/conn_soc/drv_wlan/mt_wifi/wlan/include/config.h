@@ -973,13 +973,13 @@
  */
 #define CFG_SLT_SUPPORT                             0
 
-#define	MTK_AUTO_CHANNEL_SEL_SUPPORT_ENABLE				0
+#define	MTK_AUTO_CHANNEL_SEL_SUPPORT_ENABLE				1
 
-#if defined(MTK_LTE_SUPPORT) || defined(MTK_AUTO_CHANNEL_SEL_SUPPORT_ENABLE)
+//#if defined(MTK_LTE_SUPPORT) || defined(MTK_AUTO_CHANNEL_SEL_SUPPORT_ENABLE)
 #define CFG_AUTO_CHANNEL_SEL_SUPPORT				1
-#else
-#define CFG_AUTO_CHANNEL_SEL_SUPPORT				0
-#endif
+//#else
+//#define CFG_AUTO_CHANNEL_SEL_SUPPORT				0
+//#endif
 
 #ifdef NDIS60_MINIPORT
 #define CFG_NATIVE_802_11                       1

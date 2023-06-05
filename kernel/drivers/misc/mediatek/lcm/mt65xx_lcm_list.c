@@ -17,7 +17,7 @@
 #else
 #define LCD_DEBUG(fmt)  printk(fmt)
 #endif
-
+extern LCM_DRIVER hx8379a_dsi_vdo_tcl_bidrectional_lcm_drv;
 extern LCM_DRIVER otm1282a_hd720_dsi_vdo_60hz_lcm_drv;
 extern LCM_DRIVER otm1282a_hd720_dsi_vdo_lcm_drv;
 extern LCM_DRIVER vvx10f008b00_wuxga_dsi_vdo_lcm_drv;

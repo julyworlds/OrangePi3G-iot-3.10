@@ -49,6 +49,7 @@
 //#include "partition.h"
 #include <asm/system.h>
 #include "partition_define.h"
+#include "nand_device_list.h"
 #include <mach/mt_boot.h>
 //#include "../../../../../../source/kernel/drivers/aee/ipanic/ipanic.h"
 #include <linux/rtc.h>
@@ -448,37 +449,37 @@ bool get_device_info(u8*id, flashdev_info_t *devinfo)
     u32 i,m,n,mismatch;
     int target=-1;
     u8 target_id_len=0;
-    for (i = 0; i<flash_number; i++){
+    for (i = 0; i<CHIP_CNT; i++){
 		mismatch=0;
-		for(m=0;m<gen_FlashTable_p[i].id_length;m++){
-			if(id[m]!=gen_FlashTable_p[i].id[m]){
+		for(m=0;m<gen_FlashTable[i].id_length;m++){
+			if(id[m]!=gen_FlashTable[i].id[m]){
 				mismatch=1;
 				break;
 			}
 		}
-		if(mismatch == 0 && gen_FlashTable_p[i].id_length > target_id_len){
+		if(mismatch == 0 && gen_FlashTable[i].id_length > target_id_len){
 				target=i;
-				target_id_len=gen_FlashTable_p[i].id_length;
+				target_id_len=gen_FlashTable[i].id_length;
 		}
     }
 
     if(target != -1){
 		MSG(INIT, "Recognize NAND: ID [");
-		for(n=0;n<gen_FlashTable_p[target].id_length;n++){
-			devinfo->id[n] = gen_FlashTable_p[target].id[n];
+		for(n=0;n<gen_FlashTable[target].id_length;n++){
+			devinfo->id[n] = gen_FlashTable[target].id[n];
 			MSG(INIT, "%x ",devinfo->id[n]);
 		}
-		MSG(INIT, "], Device Name [%s], Page Size [%d]B Spare Size [%d]B Total Size [%d]MB\n",gen_FlashTable_p[target].devciename,gen_FlashTable_p[target].pagesize,gen_FlashTable_p[target].sparesize,gen_FlashTable_p[target].totalsize);
-		devinfo->id_length=gen_FlashTable_p[target].id_length;
-		devinfo->blocksize = gen_FlashTable_p[target].blocksize;
-		devinfo->addr_cycle = gen_FlashTable_p[target].addr_cycle;
-		devinfo->iowidth = gen_FlashTable_p[target].iowidth;
-		devinfo->timmingsetting = gen_FlashTable_p[target].timmingsetting;
-		devinfo->advancedmode = gen_FlashTable_p[target].advancedmode;
-		devinfo->pagesize = gen_FlashTable_p[target].pagesize;
-		devinfo->sparesize = gen_FlashTable_p[target].sparesize;
-		devinfo->totalsize = gen_FlashTable_p[target].totalsize;
-		memcpy(devinfo->devciename, gen_FlashTable_p[target].devciename, sizeof(devinfo->devciename));
+		MSG(INIT, "], Device Name [%s], Page Size [%d]B Spare Size [%d]B Total Size [%d]MB\n",gen_FlashTable[target].devciename,gen_FlashTable[target].pagesize,gen_FlashTable[target].sparesize,gen_FlashTable[target].totalsize);
+		devinfo->id_length=gen_FlashTable[target].id_length;
+		devinfo->blocksize = gen_FlashTable[target].blocksize;
+		devinfo->addr_cycle = gen_FlashTable[target].addr_cycle;
+		devinfo->iowidth = gen_FlashTable[target].iowidth;
+		devinfo->timmingsetting = gen_FlashTable[target].timmingsetting;
+		devinfo->advancedmode = gen_FlashTable[target].advancedmode;
+		devinfo->pagesize = gen_FlashTable[target].pagesize;
+		devinfo->sparesize = gen_FlashTable[target].sparesize;
+		devinfo->totalsize = gen_FlashTable[target].totalsize;
+		memcpy(devinfo->devciename, gen_FlashTable[target].devciename, sizeof(devinfo->devciename));
     	return true;
 	}else{
 	    MSG(INIT, "Not Found NAND: ID [");

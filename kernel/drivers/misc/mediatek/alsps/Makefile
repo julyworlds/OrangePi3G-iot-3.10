@@ -48,3 +48,7 @@ endif
 ifeq ($(CONFIG_MTK_RPR410),y)
 obj-y	+=  rpr410/
 endif
+
+ifeq ($(CONFIG_MTK_AP3220),y)
+obj-y	+=  ap3220/
+endif
