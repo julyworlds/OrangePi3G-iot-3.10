@@ -33,6 +33,7 @@
 #include "wmt_exp.h"
 #include "stp_exp.h"
 
+#include "wmt_detect.h"
 
 MODULE_LICENSE("Dual BSD/GPL");
 
@@ -65,6 +66,9 @@ UINT32 gDbgLevel = WIFI_LOG_DBG;
 #if CFG_TC1_FEATURE
 #define LEGACY_IFACE_NAME "legacy0"
 #endif
+
+// HOTFIX
+extern int mtk_wcn_stpbt_drv_init_fix(void);
 
 enum {
     WLAN_MODE_HALT,
@@ -402,6 +406,13 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
                 WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
                 wlan_mode = WLAN_MODE_HALT;
             }
+        }
+	else if (local[0] == '2') {
+		WMT_DETECT_INFO_FUNC("start to do bluetooth driver init\n");
+		int i_ret = mtk_wcn_stpbt_drv_init_fix();
+		WMT_DETECT_INFO_FUNC("finish bluetooth driver init, i_ret:%d\n", i_ret);
+		retval = count;
+		goto done;
         }
         else if (local[0] == 'D') {
             INT32 k = 0;

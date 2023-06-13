@@ -1253,7 +1253,7 @@ VOID nicRxProcessPktWithoutReorder(IN P_ADAPTER_T prAdapter, IN P_SW_RFB_T prSwR
 			       prSwRfb->pvPacket,
 			       prSwRfb->pvHeader,
 			       (UINT_32) prSwRfb->u2PacketLen, fgIsRetained, prSwRfb->aeCSUM) != WLAN_STATUS_SUCCESS) {
-		DBGLOG(RX, ERROR, ("kalProcessRxPacket return value != WLAN_STATUS_SUCCESS\n"));
+		// DBGLOG(RX, ERROR, ("kalProcessRxPacket return value != WLAN_STATUS_SUCCESS\n"));
 		ASSERT(0);
 
 		nicRxReturnRFB(prAdapter, prSwRfb);
@@ -1466,15 +1466,15 @@ VOID nicRxProcessDataPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 
 #if CFG_SUPPORT_WAPI
 		if (u2Etype == ETH_P_1X || u2Etype == ETH_WPI_1X) {
-			DBGLOG(RSN, INFO, ("R1X len=%d\n", prSwRfb->u2PacketLen));
+			//DBGLOG(RSN, INFO, ("R1X len=%d\n", prSwRfb->u2PacketLen));
 		}
 #else
 		if (u2Etype == ETH_P_1X) {
-			DBGLOG(RSN, INFO, ("R1X len=%d\n", prSwRfb->u2PacketLen));
+			//DBGLOG(RSN, INFO, ("R1X len=%d\n", prSwRfb->u2PacketLen));
 		}
 #endif
 		else if (u2Etype == ETH_P_PRE_1X) {
-			DBGLOG(RSN, INFO, ("Pre R1X len=%d\n", prSwRfb->u2PacketLen));
+			//DBGLOG(RSN, INFO, ("Pre R1X len=%d\n", prSwRfb->u2PacketLen));
 		}
 	}
 #endif
@@ -1582,7 +1582,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 	DEBUGFUNC("nicRxProcessGSCNEvent");
 	/* DBGLOG(INIT, TRACE, ("\n")); */
 
-	DBGLOG(SCN, INFO, ("nicRxProcessGSCNEvent \n"));
+	//DBGLOG(SCN, INFO, ("nicRxProcessGSCNEvent \n"));
 
 	ASSERT(prAdapter);
 	ASSERT(prSwRfb);
@@ -1595,13 +1595,13 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 
 	/* prGlueInfo-> */
 
-	DBGLOG(SCN, INFO, ("Event Handling \n"));
+	//DBGLOG(SCN, INFO, ("Event Handling \n"));
 
 	/* Event Handling */
 	switch (prEvent->ucEID) {
 	case EVENT_ID_GSCAN_SCAN_AVAILABLE:
 		{
-			DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_SCAN_AVAILABLE \n"));
+			//DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_SCAN_AVAILABLE \n"));
 
 			prEventGscnAvailable = (P_EVENT_GSCAN_SCAN_AVAILABLE_T) (prEvent->aucBuffer);
 			memcpy(prEventGscnAvailable, (P_EVENT_GSCAN_SCAN_AVAILABLE_T) (prEvent->aucBuffer),
@@ -1614,7 +1614,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 
 	case EVENT_ID_GSCAN_RESULT:
 		{
-			DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_RESULT 2\n"));
+			//DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_RESULT 2\n"));
 
 			prEventBuffer = (P_EVENT_GSCAN_RESULT_T) (prEvent->aucBuffer);
 			prEventGscnResult = prEventBuffer->rResult;
@@ -1658,7 +1658,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 
 	case EVENT_ID_GSCAN_CAPABILITY:
 		{
-			DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_CAPABILITY \n"));
+			//DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_CAPABILITY \n"));
 
 			prEventGscnCapbiblity = (P_EVENT_GSCAN_CAPABILITY_T) (prEvent->aucBuffer);
 			memcpy(prEventGscnCapbiblity, (P_EVENT_GSCAN_CAPABILITY_T) (prEvent->aucBuffer),
@@ -1671,7 +1671,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 
 	case EVENT_ID_GSCAN_SCAN_COMPLETE:
 		{
-			DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_SCAN_COMPLETE \n"));
+			//DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_SCAN_COMPLETE \n"));
 			prEventGscnScnDone = (P_EVENT_GSCAN_SCAN_COMPLETE_T) (prEvent->aucBuffer);
 			memcpy(prEventGscnScnDone, (P_EVENT_GSCAN_SCAN_COMPLETE_T) (prEvent->aucBuffer),
 			       sizeof(EVENT_GSCAN_SCAN_COMPLETE_T));
@@ -1683,7 +1683,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 
 	case EVENT_ID_GSCAN_FULL_RESULT:
 		{
-			DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_FULL_RESULT \n"));
+			//DBGLOG(SCN, INFO, ("EVENT_ID_GSCAN_FULL_RESULT \n"));
 
 			prEventGscnFullResult =
 			    (P_EVENT_GSCAN_FULL_RESULT_T) ((prEvent->aucBuffer) + sizeof(EVENT_GSCAN_FULL_RESULT_T));
@@ -1723,7 +1723,7 @@ UINT_8 nicRxProcessGSCNEvent(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 		break;
 	}
 
-	DBGLOG(SCN, INFO, ("Done with GSCN event handling \n"));
+	//DBGLOG(SCN, INFO, ("Done with GSCN event handling \n"));
 	return real_num;	/* cfg80211_vendor_cmd_reply(skb); */
 
 nla_put_failure:
@@ -1760,7 +1760,7 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 	prEvent = (P_WIFI_EVENT_T) prSwRfb->pucRecvBuff;
 	prGlueInfo = prAdapter->prGlueInfo;
 
-	DBGLOG(INIT, TRACE, ("prEvent->ucEID = 0x%02x\n", prEvent->ucEID));
+	//DBGLOG(INIT, TRACE, ("prEvent->ucEID = 0x%02x\n", prEvent->ucEID));
 	/* Event Handling */
 	switch (prEvent->ucEID) {
 	case EVENT_ID_WARNING_TO_DRIVER:
@@ -2058,15 +2058,15 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 			P_EVENT_TX_DONE_T prTxDone;
 			prTxDone = (P_EVENT_TX_DONE_T) (prEvent->aucBuffer);
 
-			DBGLOG(INIT, TRACE, ("EVENT_ID_TX_DONE PacketSeq:%u ucStatus: %u SN: %u\n",
-					     prTxDone->ucPacketSeq, prTxDone->ucStatus, prTxDone->u2SequenceNumber));
+			//DBGLOG(INIT, TRACE, ("EVENT_ID_TX_DONE PacketSeq:%u ucStatus: %u SN: %u\n",
+			//		     prTxDone->ucPacketSeq, prTxDone->ucStatus, prTxDone->u2SequenceNumber));
 
 			/* call related TX Done Handler */
 			prMsduInfo = nicGetPendingTxMsduInfo(prAdapter, prTxDone->ucPacketSeq);
 
 #if CFG_SUPPORT_802_11V_TIMING_MEASUREMENT
-			DBGLOG(INIT, TRACE, ("EVENT_ID_TX_DONE u4TimeStamp = %x u2AirDelay = %x\n",
-					     prTxDone->au4Reserved1, prTxDone->au4Reserved2));
+			//DBGLOG(INIT, TRACE, ("EVENT_ID_TX_DONE u4TimeStamp = %x u2AirDelay = %x\n",
+			//		     prTxDone->au4Reserved1, prTxDone->au4Reserved2));
 
 			wnmReportTimingMeas(prAdapter, prMsduInfo->ucStaRecIndex,
 					    prTxDone->au4Reserved1, prTxDone->au4Reserved1 + prTxDone->au4Reserved2);
@@ -2170,13 +2170,13 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 		break;
 #endif
 	case EVENT_ID_BSS_BEACON_TIMEOUT:
-		DBGLOG(INIT, INFO, ("EVENT_ID_BSS_BEACON_TIMEOUT\n"));
+		//DBGLOG(INIT, INFO, ("EVENT_ID_BSS_BEACON_TIMEOUT\n"));
 
 		if (prAdapter->fgDisBcnLostDetection == FALSE) {
 			P_EVENT_BSS_BEACON_TIMEOUT_T prEventBssBeaconTimeout;
 			prEventBssBeaconTimeout = (P_EVENT_BSS_BEACON_TIMEOUT_T) (prEvent->aucBuffer);
 
-			DBGLOG(INIT, INFO, ("Reason = %u\n", prEventBssBeaconTimeout->ucReason));
+			//DBGLOG(INIT, INFO, ("Reason = %u\n", prEventBssBeaconTimeout->ucReason));
 
 			if (prEventBssBeaconTimeout->ucNetTypeIndex == NETWORK_TYPE_AIS_INDEX) {
 				/* Request stats report before beacon timeout */
@@ -2282,8 +2282,8 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 			P_STA_RECORD_T prStaRec;
 
 			prWlanMacHeader = (P_WLAN_MAC_HEADER_T) &prEvent->aucBuffer[0];
-			DBGLOG(RSN, INFO, ("nicRx: aucAddr1: " MACSTR "\n", MAC2STR(prWlanMacHeader->aucAddr1)));
-			DBGLOG(RSN, INFO, ("nicRx: aucAddr2: " MACSTR "\n", MAC2STR(prWlanMacHeader->aucAddr2)));
+			//DBGLOG(RSN, INFO, ("nicRx: aucAddr1: " MACSTR "\n", MAC2STR(prWlanMacHeader->aucAddr1)));
+			//DBGLOG(RSN, INFO, ("nicRx: aucAddr2: " MACSTR "\n", MAC2STR(prWlanMacHeader->aucAddr2)));
 			prStaRec = cnmGetStaRecByAddress(prAdapter, NETWORK_TYPE_AIS_INDEX, prWlanMacHeader->aucAddr2);
 			if (prStaRec != NULL && prStaRec->ucStaState == STA_STATE_3) {
 				DBGLOG(RSN, INFO, ("Ignore Deauth for Rx Class 3 error!\n"));
@@ -2401,9 +2401,9 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 		{
 
 			UINT_8 realnum = 0;
-			DBGLOG(SCN, TRACE, ("nicRxProcessGSCNEvent  ----->\n"));
+			//DBGLOG(SCN, TRACE, ("nicRxProcessGSCNEvent  ----->\n"));
 			realnum = nicRxProcessGSCNEvent(prAdapter, prSwRfb);
-			DBGLOG(SCN, TRACE, ("nicRxProcessGSCNEvent  <-----\n"));
+			//DBGLOG(SCN, TRACE, ("nicRxProcessGSCNEvent  <-----\n"));
 
 #if 0				/* workaround for FW events cnt mis-match with the actual reqirements from wifi_hal */
 			if (g_GetResultsCmdCnt == 0) {
@@ -2440,7 +2440,7 @@ VOID nicRxProcessEventPacket(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb
 		break;
 #if CFG_SUPPORT_BATCH_SCAN
 	case EVENT_ID_BATCH_RESULT:
-		DBGLOG(SCN, TRACE, ("Got EVENT_ID_BATCH_RESULT"));
+		//DBGLOG(SCN, TRACE, ("Got EVENT_ID_BATCH_RESULT"));
 
 		/* command response handling */
 		prCmdInfo = nicGetPendingCmdInfo(prAdapter, prEvent->ucSeqNum);
@@ -2698,7 +2698,7 @@ WLAN_STATUS nicRxReadBuffer(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 	pucBuf = prSwRfb->pucRecvBuff;
 	prHifRxHdr = prSwRfb->prHifRxHdr;
 	ASSERT(pucBuf);
-	DBGLOG(RX, TRACE, ("pucBuf= 0x%x, prHifRxHdr= 0x%x\n", pucBuf, prHifRxHdr));
+	//DBGLOG(RX, TRACE, ("pucBuf= 0x%x, prHifRxHdr= 0x%x\n", pucBuf, prHifRxHdr));
 
 	do {
 		/* Read the RFB DW length and packet length */
@@ -2721,7 +2721,7 @@ WLAN_STATUS nicRxReadBuffer(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 			u4PktLen = (u4RegValue & BITS(16, 31)) >> 16;
 		}
 
-		DBGLOG(RX, TRACE, ("RX%d: u4PktLen = %d\n", rxNum, u4PktLen));
+		//DBGLOG(RX, TRACE, ("RX%d: u4PktLen = %d\n", rxNum, u4PktLen));
 
 		/* 4 <4> Read Entire RFB and packet, include HW appended DW (Checksum Status) */
 		u4ReadBytes = ALIGN_4(u4PktLen) + 4;
@@ -2730,7 +2730,7 @@ WLAN_STATUS nicRxReadBuffer(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 		/* 20091021 move the line to get the HIF RX header */
 		/* u4PktLen = (UINT_32)prHifRxHdr->u2PacketLen; */
 		if (u4PktLen != (UINT_32) prHifRxHdr->u2PacketLen) {
-			DBGLOG(RX, ERROR, ("Read u4PktLen = %d, prHifRxHdr->u2PacketLen: %d\n",
+			//DBGLOG(RX, ERROR, ("Read u4PktLen = %d, prHifRxHdr->u2PacketLen: %d\n",
 					   u4PktLen, prHifRxHdr->u2PacketLen));
 #if DBG
 			dumpMemory8((PUINT_8) prHifRxHdr,
@@ -2741,7 +2741,7 @@ WLAN_STATUS nicRxReadBuffer(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 		/* u4PktLen is byte unit, not inlude HW appended DW */
 
 		prSwRfb->ucPacketType = (UINT_8) (prHifRxHdr->u2PacketType & HIF_RX_HDR_PACKET_TYPE_MASK);
-		DBGLOG(RX, TRACE, ("ucPacketType = %d\n", prSwRfb->ucPacketType));
+		//DBGLOG(RX, TRACE, ("ucPacketType = %d\n", prSwRfb->ucPacketType));
 
 		prSwRfb->ucStaRecIdx = (UINT_8) (prHifRxHdr->ucStaRecIdx);
 
@@ -2749,7 +2749,7 @@ WLAN_STATUS nicRxReadBuffer(IN P_ADAPTER_T prAdapter, IN OUT P_SW_RFB_T prSwRfb)
 		if (!fgResult)
 			return WLAN_STATUS_FAILURE;
 
-		DBGLOG(RX, TRACE, ("Dump RX buffer, length = 0x%x\n", u4ReadBytes));
+		//DBGLOG(RX, TRACE, ("Dump RX buffer, length = 0x%x\n", u4ReadBytes));
 		DBGLOG_MEM8(RX, TRACE, pucBuf, u4ReadBytes);
 	} while (FALSE);
 
@@ -2806,8 +2806,8 @@ VOID nicRxReceiveRFBs(IN P_ADAPTER_T prAdapter)
 
 		prHifRxHdr = prSwRfb->prHifRxHdr;
 		u4HwAppendDW = *((PUINT_32) ((ULONG) prHifRxHdr + (UINT_32) (ALIGN_4(prHifRxHdr->u2PacketLen))));
-		DBGLOG(RX, TRACE, ("u4HwAppendDW = 0x%x\n", u4HwAppendDW));
-		DBGLOG(RX, TRACE, ("u2PacketLen = 0x%x\n", prHifRxHdr->u2PacketLen));
+		//DBGLOG(RX, TRACE, ("u4HwAppendDW = 0x%x\n", u4HwAppendDW));
+		//DBGLOG(RX, TRACE, ("u2PacketLen = 0x%x\n", prHifRxHdr->u2PacketLen));
 	}
 	while (FALSE);	/* while (RX_STATUS_TEST_MORE_FLAG(u4HwAppendDW)); */
 

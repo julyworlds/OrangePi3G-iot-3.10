@@ -55,7 +55,7 @@
 
 //add vmstat info with block tag log
 #include <linux/vmstat.h>
-#define FEATURE_STORAGE_VMSTAT_LOGGER
+//#define FEATURE_STORAGE_VMSTAT_LOGGER
 
 
 #include <linux/xlog.h>

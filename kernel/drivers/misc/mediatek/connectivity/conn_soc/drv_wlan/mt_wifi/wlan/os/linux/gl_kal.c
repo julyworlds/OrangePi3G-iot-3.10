@@ -1819,7 +1819,7 @@ kalIndicateStatusAndComplete(IN P_GLUE_INFO_T prGlueInfo, IN WLAN_STATUS eStatus
 		 */
 		/* switch netif off */
 
-#if 1				/* CONSOLE_MESSAGE */
+#if 0				/* CONSOLE_MESSAGE */
 		DBGLOG(INIT, INFO, ("[wifi] %s netif_carrier_off %d\n",
 				    prGlueInfo->prDevHandler->name,
 				    prGlueInfo->prDevHandler->ieee80211_ptr->sme_state));
@@ -1855,7 +1855,7 @@ kalIndicateStatusAndComplete(IN P_GLUE_INFO_T prGlueInfo, IN WLAN_STATUS eStatus
 		GLUE_RELEASE_SPIN_LOCK(prGlueInfo, SPIN_LOCK_NET_DEV);
 
 		/* 2. then CFG80211 Indication */
-		DBGLOG(INIT, TRACE, ("[ais] scan complete %p %d %d\n", prScanRequest, ScanCnt, ScanDoneFailCnt));
+		//DBGLOG(INIT, TRACE, ("[ais] scan complete %p %d %d\n", prScanRequest, ScanCnt, ScanDoneFailCnt));
 
 		if (prScanRequest != NULL)
 			cfg80211_scan_done(prScanRequest, FALSE);
@@ -2144,7 +2144,7 @@ VOID kalSendCompleteAndAwakeQueue(IN P_GLUE_INFO_T prGlueInfo, IN PVOID pvPacket
 
 	dev_kfree_skb((struct sk_buff *)pvPacket);
 
-	DBGLOG(TX, EVENT, ("----- pending frame %d -----\n", prGlueInfo->i4TxPendingFrameNum));
+	//DBGLOG(TX, EVENT, ("----- pending frame %d -----\n", prGlueInfo->i4TxPendingFrameNum));
 
 	return;
 }
@@ -3894,7 +3894,7 @@ INT_32 kalReadToFile(const PUINT_8 pucPath, PUINT_8 pucData, UINT_32 u4Size, PUI
 	INT_32 ret = -1;
 	UINT_32 u4ReadSize = 0;
 
-	DBGLOG(INIT, INFO, ("kalReadToFile() path %s\n", pucPath));
+	//DBGLOG(INIT, INFO, ("kalReadToFile() path %s\n", pucPath));
 
 	file = kalFileOpen(pucPath, O_RDONLY, 0);
 
@@ -3966,7 +3966,7 @@ kalIndicateBssInfo(IN P_GLUE_INFO_T prGlueInfo,
 #else
 			cfg80211_put_bss(bss);
 #endif
-			DBGLOG(SCN, TRACE, ("iok\n"));
+			//DBGLOG(SCN, TRACE, ("iok\n"));
 		}
 	}
 
@@ -4155,16 +4155,16 @@ VOID kalIndicateRxMgmtFrame(IN P_GLUE_INFO_T prGlueInfo, IN P_SW_RFB_T prSwRfb)
 
 		switch (prWlanHeader->u2FrameCtrl) {
 		case MAC_FRAME_PROBE_REQ:
-			DBGLOG(AIS, TRACE, ("RX Probe Req at channel %d ", ucChnlNum));
+			//DBGLOG(AIS, TRACE, ("RX Probe Req at channel %d ", ucChnlNum));
 			break;
 		case MAC_FRAME_PROBE_RSP:
-			DBGLOG(AIS, TRACE, ("RX Probe Rsp at channel %d ", ucChnlNum));
+			//DBGLOG(AIS, TRACE, ("RX Probe Rsp at channel %d ", ucChnlNum));
 			break;
 		case MAC_FRAME_ACTION:
 			printk("RX Action frame at channel %d ", ucChnlNum);
 			break;
 		default:
-			DBGLOG(AIS, TRACE, ("RX Packet:%d at channel %d ", prWlanHeader->u2FrameCtrl, ucChnlNum));
+			//DBGLOG(AIS, TRACE, ("RX Packet:%d at channel %d ", prWlanHeader->u2FrameCtrl, ucChnlNum));
 			break;
 		}
 

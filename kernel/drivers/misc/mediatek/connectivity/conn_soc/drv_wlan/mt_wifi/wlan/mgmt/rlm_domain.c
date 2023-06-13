@@ -810,9 +810,9 @@ P_DOMAIN_INFO_ENTRY rlmDomainGetDomainInfo(P_ADAPTER_T prAdapter)
 
 	prRegInfo = &prAdapter->prGlueInfo->rRegInfo;
 
-	DBGLOG(RLM, INFO, ("Domain: map=%d, idx=%d, code=0x%04x\n",
-			   prRegInfo->eRegChannelListMap, prRegInfo->ucRegChannelListIndex,
-			   prAdapter->rWifiVar.rConnSettings.u2CountryCode));
+	// DBGLOG(RLM, INFO, ("Domain: map=%d, idx=%d, code=0x%04x\n",
+	// 		   prRegInfo->eRegChannelListMap, prRegInfo->ucRegChannelListIndex,
+	// 		   prAdapter->rWifiVar.rConnSettings.u2CountryCode));
 
 	/* only 1 is set among idx/customized/countryCode in NVRAM */
 
@@ -955,7 +955,7 @@ VOID rlmDomainSendCmd(P_ADAPTER_T prAdapter, BOOLEAN fgIsOid)
 	}
 
 	prAdapter->rWifiVar.rConnSettings.u2CountryCodeBakup = prAdapter->rWifiVar.rConnSettings.u2CountryCode;
-	DBGLOG(RLM, INFO, ("Domain: country code backup %x\n", prAdapter->rWifiVar.rConnSettings.u2CountryCodeBakup));
+	// DBGLOG(RLM, INFO, ("Domain: country code backup %x\n", prAdapter->rWifiVar.rConnSettings.u2CountryCodeBakup));
 
 	prCmd->u2CountryCode = prAdapter->rWifiVar.rConnSettings.u2CountryCode;
 	prCmd->u2IsSetPassiveScan = 0;
@@ -977,7 +977,7 @@ VOID rlmDomainSendCmd(P_ADAPTER_T prAdapter, BOOLEAN fgIsOid)
 		}
 	}
 
-	DBGLOG(RLM, INFO, ("rlmDomainSendCmd(), SetQueryCmd\n"));
+	// DBGLOG(RLM, INFO, ("rlmDomainSendCmd(), SetQueryCmd\n"));
 
 	/* Update domain info to chip */
 	rStatus = wlanSendSetQueryCmd(prAdapter,	/* prAdapter */
@@ -1025,8 +1025,8 @@ VOID rlmDomainPassiveScanSendCmd(P_ADAPTER_T prAdapter, BOOLEAN fgIsOid)
 	prCmd->aucReserved[0] = 0;
 	prCmd->aucReserved[1] = 0;
 
-	DBGLOG(RLM, INFO,
-	       ("rlmDomainPassiveScanSendCmd(), CountryCode = %x\n", prAdapter->rWifiVar.rConnSettings.u2CountryCode));
+	// DBGLOG(RLM, INFO,
+	//        ("rlmDomainPassiveScanSendCmd(), CountryCode = %x\n", prAdapter->rWifiVar.rConnSettings.u2CountryCode));
 
 	if (prAdapter->rWifiVar.rConnSettings.u2CountryCode == COUNTRY_CODE_UDF)
 		prDomainInfo = &arSupportedRegDomains_Passive[REG_DOMAIN_PASSIVE_UDF_IDX];

@@ -197,7 +197,7 @@ typedef struct stp_psm_opid_record {
 *                           P R I V A T E   D A T A
 ********************************************************************************
 */
-#define PSM_USE_COUNT_PACKAGE 0
+#define PSM_USE_COUNT_PACKAGE 1
 
 #if PSM_USE_COUNT_PACKAGE
 #define MTK_COMBO_PSM_RX_TH_DEFAULT (1600)

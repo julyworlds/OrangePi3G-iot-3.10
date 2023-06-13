@@ -2217,7 +2217,7 @@ int mtk_wcn_stp_parser_data(UINT8 *buffer, UINT32 length)
     /*----------------------------------------------------------------*/
 	INT32 i;
 	UINT8 *p_data;
-	INT32 ret;
+	INT32 ret = 0;
 #ifdef DEBUG_DUMP_PACKET_HEAD
 	static UINT32 counter;
 	STP_TRACE_FUNC("++, rx (cnt=%d,len=%d)\n", ++counter, length);
@@ -2255,7 +2255,7 @@ int mtk_wcn_stp_parser_data(UINT8 *buffer, UINT32 length)
 	}
 	/* STP over SDIO */
 	else if ((mtk_wcn_stp_is_sdio_mode() || mtk_wcn_stp_is_btif_mand_mode()) && STP_IS_ENABLE(stp_core_ctx)) {
-#if !(REMOVE_USELESS_LOG)
+#if 0
 		if (gStpDbgLvl >= STP_LOG_DBG)
 			stp_dump_data(buffer, "sdio parser_in", length);
 #endif

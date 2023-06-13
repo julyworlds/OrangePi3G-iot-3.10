@@ -732,7 +732,7 @@ VOID scnInit(IN P_ADAPTER_T prAdapter)
 	prScanInfo = &(prAdapter->rWifiVar.rScanInfo);
 	pucBSSBuff = &prScanInfo->aucScanBuffer[0];
 
-	DBGLOG(SCN, INFO, ("->scnInit()\n"));
+	// DBGLOG(SCN, INFO, ("->scnInit()\n"));
 
 	/* 4 <1> Reset STATE and Message List */
 	prScanInfo->eCurrentState = SCAN_STATE_IDLE;
@@ -785,7 +785,7 @@ VOID scnUninit(IN P_ADAPTER_T prAdapter)
 	ASSERT(prAdapter);
 	prScanInfo = &(prAdapter->rWifiVar.rScanInfo);
 
-	DBGLOG(SCN, INFO, ("->scnUninit()\n"));
+	// DBGLOG(SCN, INFO, ("->scnUninit()\n"));
 
 	/* 4 <1> Reset STATE and Message List */
 	prScanInfo->eCurrentState = SCAN_STATE_IDLE;
@@ -2062,7 +2062,7 @@ WLAN_STATUS scanAddScanResult(IN P_ADAPTER_T prAdapter, IN P_BSS_DESC_T prBssDes
 		break;
 	}
 
-	DBGLOG(SCN, TRACE, ("ind %s %d\n", prBssDesc->aucSSID, prBssDesc->ucChannelNum));
+	// DBGLOG(SCN, TRACE, ("ind %s %d\n", prBssDesc->aucSSID, prBssDesc->ucChannelNum));
 
 #if (CFG_SUPPORT_TDLS == 1)
 	{
@@ -2077,9 +2077,9 @@ WLAN_STATUS scanAddScanResult(IN P_ADAPTER_T prAdapter, IN P_BSS_DESC_T prBssDes
 			prSwRfb->u2PacketLen -= 2;
 /* prSwRfb->u2PacketLen += 7; */
 
-			DBGLOG(TDLS, INFO,
-			       ("<tdls> %s: append ext cap element to " MACSTR "\n",
-				__func__, MAC2STR(prBssDesc->aucBSSID)));
+			// DBGLOG(TDLS, INFO,
+			//        ("<tdls> %s: append ext cap element to " MACSTR "\n",
+			// 	__func__, MAC2STR(prBssDesc->aucBSSID)));
 		}
 	}
 #endif /* CFG_SUPPORT_TDLS */
@@ -2140,7 +2140,7 @@ VOID scanReportBss2Cfg80211(IN P_ADAPTER_T prAdapter, IN ENUM_BSS_TYPE_T eBSSTyp
 
 	prBSSDescList = &prScanInfo->rBSSDescList;
 
-	DBGLOG(SCN, TRACE, ("scanReportBss2Cfg80211\n"));
+	// DBGLOG(SCN, TRACE, ("scanReportBss2Cfg80211\n"));
 
 	if (SpecificprBssDesc) {
 		{
@@ -2151,7 +2151,7 @@ VOID scanReportBss2Cfg80211(IN P_ADAPTER_T prAdapter, IN ENUM_BSS_TYPE_T eBSSTyp
 				return;
 			}
 
-			DBGLOG(SCN, TRACE, ("Report Specific SSID[%s]\n", SpecificprBssDesc->aucSSID));
+			// DBGLOG(SCN, TRACE, ("Report Specific SSID[%s]\n", SpecificprBssDesc->aucSSID));
 			if (eBSSType == BSS_TYPE_INFRASTRUCTURE) {
 
 				kalIndicateBssInfo(prAdapter->prGlueInfo,
@@ -2219,8 +2219,8 @@ VOID scanReportBss2Cfg80211(IN P_ADAPTER_T prAdapter, IN ENUM_BSS_TYPE_T eBSSTyp
 #endif
 			    ) {
 
-				DBGLOG(SCN, TRACE, ("Report ALL SSID[%s %d]\n",
-						    prBssDesc->aucSSID, prBssDesc->ucChannelNum));
+				// DBGLOG(SCN, TRACE, ("Report ALL SSID[%s %d]\n",
+				// 		    prBssDesc->aucSSID, prBssDesc->ucChannelNum));
 
 				if (eBSSType == BSS_TYPE_INFRASTRUCTURE) {
 					if (prBssDesc->u2RawLength != 0) {
