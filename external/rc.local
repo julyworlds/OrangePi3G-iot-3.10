@@ -12,9 +12,18 @@
 # By default this script does nothing.
 
 
-/usr/local/sbin/wmt_loader
-mknod /dev/wmtWifi c 153 0
+systemctl stop ModemManager.service
+systemctl stop ModemManager
+systemctl disable ModemManager.service
+systemctl disable ModemManager
+echo 3 > /proc/sys/kernel/printk
+sleep 10;
 mknod /dev/stpwmt c 190 0
+mknod /dev/stpgps c 191 0
+mknod /dev/stpbt  c 192 0
+mknod /dev/fm     c 193 0
+mknod /dev/wmtWifi c 153 0
+/usr/local/sbin/wmt_loader
 /usr/local/sbin/6620_launcher -p /system/etc/firmware  &
 sleep 1
 echo 1 > /dev/wmtWifi

@@ -470,7 +470,7 @@ apt-get -y install $EXTRADEBS
 
 apt-get install -f
 
-apt-get -y remove --purge ureadahead
+apt-get -y remove --purge ureadahead modemmanager
 $ADDPPACMD
 apt-get -y update
 $DISPTOOLCMD

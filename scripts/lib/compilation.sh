@@ -198,7 +198,7 @@ compile_kernel()
     				fi
 			fi
 			export PATH=$ROOT/external/make:$PATH
-			export TARGET_PRODUCT=$MTK_PROJECT
+			export TARGET_PRODUCT=golf
 
         		echo -e "\e[1;31m Using ${PLATFORM}_linux_defconfig \e[0m"
 			make -C $LINUX ARCH=arm CROSS_COMPILE=$TOOLS O=$BUILD/obj/KERNEL_OBJ ${BOARD}_linux_defconfig
