@@ -24,7 +24,13 @@ mknod /dev/stpbt  c 192 0
 mknod /dev/fm     c 193 0
 mknod /dev/wmtWifi c 153 0
 /usr/local/sbin/wmt_loader
-/usr/local/sbin/6620_launcher -p /system/etc/firmware  &
+/usr/local/sbin/6620_launcher -p /etc/firmware  &
 sleep 1
+# enable wifi
 echo 1 > /dev/wmtWifi
+sleep 1
+#enable bt
+echo 2 > /dev/wmtWifi
+sleep 1
+ifup wlan0 &
 exit 0

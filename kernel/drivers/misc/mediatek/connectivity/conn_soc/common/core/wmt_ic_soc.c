@@ -1777,7 +1777,7 @@ static INT32 mtk_wcn_soc_crystal_triming_set(VOID)
 	UINT32 u4Res;
 	bIsNvramExist = MTK_WCN_BOOL_FALSE;
 	 /**/ ctrlData.ctrlId = WMT_CTRL_CRYSTAL_TRIMING_GET;
-	ctrlData.au4CtrlData[0] = (UINT32) "/data/nvram/APCFG/APRDEB/WIFI";
+	ctrlData.au4CtrlData[0] = (UINT32) "/etc/firmware/nvram/WIFI";
 	ctrlData.au4CtrlData[1] = (UINT32) &pbuf;
 	ctrlData.au4CtrlData[2] = (UINT32) &bufLen;
 
@@ -1809,7 +1809,7 @@ static INT32 mtk_wcn_soc_crystal_triming_set(VOID)
 				     bIsCrysTrimEnabled);
 		}
 		ctrlData.ctrlId = WMT_CTRL_CRYSTAL_TRIMING_PUT;
-		ctrlData.au4CtrlData[0] = (UINT32) "/data/nvram/APCFG/APRDEB/WIFI";
+		ctrlData.au4CtrlData[0] = (UINT32) "/etc/firmware/nvram/WIFI";
 		iRet = wmt_ctrl(&ctrlData);
 		if (0 != iRet) {
 			WMT_ERR_FUNC("0x%x: WMT_CTRL_CRYSTAL_TRIMING_PUT fail:%d\n", wmt_ic_ops_soc.icId, iRet);

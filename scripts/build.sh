@@ -204,7 +204,7 @@ case "${PLATFORM}" in
 		CHIP="MT6735"
 		TOOLS=$ROOT/toolchain/arm-eabi-4.7/bin/arm-eabi-
 		#TOOLS=$ROOT/toolchain/arm-linux-androideabi-4.7/bin/arm-linux-androideabi-
-		KERNEL_NAME="linux3.10.72"
+		KERNEL_NAME="linux3.10.89"
 		;;
 	*)
 		echo -e "\e[1;31m Pls select correct platform \e[0m"

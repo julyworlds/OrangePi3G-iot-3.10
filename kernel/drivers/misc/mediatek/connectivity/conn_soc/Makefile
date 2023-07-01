@@ -7,6 +7,7 @@ ifneq ($(KERNELRELEASE),)
 	
 	obj-y += common/
 	obj-$(CONFIG_MTK_COMBO_WIFI) += drv_wlan/
+	#obj-$(CONFIG_MTK_COMBO_BT_HCI) += drv_bt/
     obj-n := dummy.o
 
 # Otherwise we were called directly from the command
