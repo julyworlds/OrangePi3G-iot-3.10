@@ -4,7 +4,6 @@
 
 obj-$(CONFIG_BT_HCIVHCI)	+= hci_vhci.o
 obj-$(CONFIG_BT_HCIUART)	+= hci_uart.o
-obj-$(CONFIG_BT_HCISTP)                += hci_stp.o
 obj-$(CONFIG_BT_HCIBCM203X)	+= bcm203x.o
 obj-$(CONFIG_BT_HCIBPA10X)	+= bpa10x.o
 obj-$(CONFIG_BT_HCIBFUSB)	+= bfusb.o
@@ -31,11 +30,3 @@ hci_uart-$(CONFIG_BT_HCIUART_LL)	+= hci_ll.o
 hci_uart-$(CONFIG_BT_HCIUART_ATH3K)	+= hci_ath.o
 hci_uart-$(CONFIG_BT_HCIUART_3WIRE)	+= hci_h5.o
 hci_uart-objs				:= $(hci_uart-y)
-
-ccflags-y += -D WMT_IDC_SUPPORT=1 -D MTK_WCN_WMT_STP_EXP_SYMBOL_ABSTRACT -D MTK_WCN_REMOVE_KERNEL_MODULE -D CONFIG_MTK_WCN_ARM64
-ccflags-y += -Idrivers/misc/mediatek/connectivity/common_detect
-ccflags-y += -Idrivers/misc/mediatek/connectivity/conn_soc/common/include
-ccflags-y += -Idrivers/misc/mediatek/connectivity/conn_soc/common/core/include
-ccflags-y += -Idrivers/misc/mediatek/connectivity/conn_soc/common/linux/include
-ccflags-y += -Idrivers/misc/mediatek/include/mt-plat
-ccflags-y += -D__CHECK_ENDIAN__

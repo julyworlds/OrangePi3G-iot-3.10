@@ -47,7 +47,7 @@
 #include <mach/mtk_nand.h>
 #include <mach/bmt.h>
 #include <mach/mt_irq.h>
-//#include "partition.h"
+#include "partition.h"
 #include <asm/system.h>
 #include "partition_define.h"
 #include <mach/mt_boot.h>
@@ -68,7 +68,7 @@ extern void mt_irq_set_polarity(unsigned int irq,unsigned int polarity);
 static void mtk_snand_reset_dev(void);
 static bool mtk_snand_rs_if_require_split(void);
 static void mtk_snand_stop_read(void);
-extern struct mtd_partition g_pasStatic_Partition[PART_MAX_COUNT];
+
 
 typedef enum
 {
@@ -145,7 +145,7 @@ __attribute__((aligned(64))) unsigned char g_snand_spare[128];
 __attribute__((aligned(64))) unsigned char g_snand_temp[4096 + 128];
 
 
-#if defined(CONFIG_MTK_COMBO_NAND_SUPPORT)
+#if defined(MTK_COMBO_NAND_SUPPORT)
 	// BMT_POOL_SIZE is not used anymore
 #else
 	#ifndef PART_SIZE_BMTPOOL
@@ -261,7 +261,7 @@ static u8 g_running_dma = 0;
 static u32 g_dump_count = 0;
 #endif
 extern struct mtd_partition g_pasStatic_Partition[];
-extern int part_num;
+int part_num = NUM_PARTITIONS;
 #ifdef PMT
 extern void part_init_pmt(struct mtd_info *mtd, u8 * buf);
 extern struct mtd_partition g_exist_Partition[];
@@ -534,7 +534,7 @@ bool mtk_snand_get_device_info(u8*id, snand_flashdev_info *devinfo)
 			MSG(INIT, "%x ",devinfo->id[n]);
 		}
 
-		MSG(INIT, "], Device Name [%s], Page Size [%d]B Spare Size [%d]B Total Size [%d]MB\n",gen_snand_FlashTable[target].devciename,gen_snand_FlashTable[target].pagesize,gen_snand_FlashTable[target].sparesize,gen_snand_FlashTable[target].totalsize);
+		MSG(INIT, "], Device Name [%s], Page Size [%d]B Spare Size [%d]B Total Size [%d]MB\n",gen_snand_FlashTable[target].devicename,gen_snand_FlashTable[target].pagesize,gen_snand_FlashTable[target].sparesize,gen_snand_FlashTable[target].totalsize);
 		devinfo->id_length=gen_snand_FlashTable[target].id_length;
 		devinfo->blocksize = gen_snand_FlashTable[target].blocksize;    // KB
 		devinfo->advancedmode = gen_snand_FlashTable[target].advancedmode;
@@ -549,7 +549,7 @@ bool mtk_snand_get_device_info(u8*id, snand_flashdev_info *devinfo)
 		devinfo->sparesize = gen_snand_FlashTable[target].sparesize;
 		devinfo->totalsize = gen_snand_FlashTable[target].totalsize;
 
-		memcpy(devinfo->devciename, gen_snand_FlashTable[target].devciename, sizeof(devinfo->devciename));
+		memcpy(devinfo->devicename, gen_snand_FlashTable[target].devicename, sizeof(devinfo->devicename));
 
 		devinfo->SNF_DLY_CTL1 = gen_snand_FlashTable[target].SNF_DLY_CTL1;
 		devinfo->SNF_DLY_CTL2 = gen_snand_FlashTable[target].SNF_DLY_CTL2;
@@ -1232,14 +1232,14 @@ static bool is_empty_page(u8 * spare_buf, u32 sec_num){
 	printk("\n");
 #else
 	for(i=0;i<OOB_INDEX_SIZE;i++){
-		MSG(INIT, "flag byte: %x ",spare_buf[OOB_INDEX_OFFSET+i] );
+		xlog_printk(ANDROID_LOG_INFO,"NFI", "flag byte: %x ",spare_buf[OOB_INDEX_OFFSET+i] );
 		if(spare_buf[OOB_INDEX_OFFSET+i] !=0xFF){
 			is_empty=false;
 			break;
 		}
 	}
 #endif
-	MSG(INIT, "This page is %s!\n",is_empty?"empty":"occupied");
+	xlog_printk(ANDROID_LOG_INFO,"NFI", "This page is %s!\n",is_empty?"empty":"occupied");
 	return is_empty;
 }
 static bool return_fake_buf(u8 * data_buf, u32 page_size, u32 sec_num,u32 u4PageAddr){
@@ -1259,11 +1259,11 @@ static bool return_fake_buf(u8 * data_buf, u32 page_size, u32 sec_num,u32 u4Page
 			t=((t&0xf0f0)>>4)+(t&0x0f0f);
 			sec_zero_count+=t;
 			if(t>0){
-				MSG(INIT, "there is %d bit filp at sector(%d): %d in empty page \n ",t,j,i);
+				xlog_printk(ANDROID_LOG_INFO,"NFI", "there is %d bit filp at sector(%d): %d in empty page \n ",t,j,i);
 			}
 		}
 		if(sec_zero_count > 2){
-			MSG(INIT, "too many bit filp=%d @ page addr=0x%x, we can not return fake buf\n",sec_zero_count,u4PageAddr);
+			xlog_printk(ANDROID_LOG_ERROR,"NFI","too many bit filp=%d @ page addr=0x%x, we can not return fake buf\n",sec_zero_count,u4PageAddr);
 			ret=false;
 		}
 	}
@@ -1336,20 +1336,20 @@ static bool mtk_snand_check_bch_error(struct mtd_info *mtd, u8 * pDataBuf,u8 * s
             {
 				failed_sec++;
                 ret = false;
-                MSG(INIT, "ECC-U, PA=%d, S=%d\n", u4PageAddr, i);
+                xlog_printk(ANDROID_LOG_WARN,"NFI", "ECC-U, PA=%d, S=%d\n", u4PageAddr, i);
             } else
             {
 				if (u4ErrNum)
                 {
 					correct_count += u4ErrNum;
-                    MSG(INIT, " ECC-C, #err:%d, PA=%d, S=%d\n", u4ErrNum, u4PageAddr, i);
+                    xlog_printk(ANDROID_LOG_INFO,"NFI"," ECC-C, #err:%d, PA=%d, S=%d\n", u4ErrNum, u4PageAddr, i);
 				}
             }
         }
 if(ret == false){
 		if(is_empty_page(spareBuf,sec_num) && return_fake_buf(pDataBuf,page_size,sec_num,u4PageAddr)){
 			ret=true;
-			MSG(INIT, "empty page have few filped bit(s) , fake buffer returned\n");
+			xlog_printk(ANDROID_LOG_INFO,"NFI", "empty page have few filped bit(s) , fake buffer returned\n");
 			memset(pDataBuf,0xff,page_size);
 			memset(spareBuf,0xff,sec_num*8);
 			failed_sec=0;
@@ -1375,7 +1375,7 @@ if(ret == false){
             mtd->ecc_stats.corrected++;
         } else
         {
-            //MSG(INIT, "Less than 2 bit error, ignore\n");
+            //xlog_printk(ANDROID_LOG_INFO,"NFI",  "Less than 2 bit error, ignore\n");
         }
     }
 #else
@@ -2850,13 +2850,13 @@ static bool mtk_snand_read_page_part2(struct mtd_info *mtd, u32 row_addr, u32 nu
             if (0x1F == reg)
             {
                 bRet = false;
-                MSG(INIT, "ECC-U(2), PA=%d, S=%d\n", row_addr, num_sec - 1);
+                xlog_printk(ANDROID_LOG_WARN,"NFI", "ECC-U(2), PA=%d, S=%d\n", row_addr, num_sec - 1);
             }
             else
             {
 				if (reg)
                 {
-                    MSG(INIT, " ECC-C(2), #err:%d, PA=%d, S=%d\n", reg, row_addr, num_sec - 1);
+                    xlog_printk(ANDROID_LOG_INFO,"NFI"," ECC-C(2), #err:%d, PA=%d, S=%d\n", reg, row_addr, num_sec - 1);
 				}
             }
         }
@@ -4731,7 +4731,7 @@ static int mtk_snand_proc_read(char *page, char **start, off_t off, int count, i
         p += sprintf(p, " 0x%x", devinfo.id[i]);
     }
     p += sprintf(p, "\n");
-    p += sprintf(p, "total size: %dMiB; part number: %s\n", devinfo.totalsize,devinfo.devciename);
+    p += sprintf(p, "total size: %dMiB; part number: %s\n", devinfo.totalsize,devinfo.devicename);
     p += sprintf(p, "Current working in %s mode\n", g_i4Interrupt ? "interrupt" : "polling");
     p += sprintf(p, "SNF_DLY_CTL1: 0x%x\n", (*RW_SNAND_DLY_CTL1));
     p += sprintf(p, "SNF_DLY_CTL2: 0x%x\n", (*RW_SNAND_DLY_CTL2));
@@ -4989,6 +4989,7 @@ static int mtk_snand_probe(struct platform_device *pdev)
     // For BMT, we need to revise driver architecture
     nand_chip->write_page = mtk_snand_write_page;
     nand_chip->read_page = mtk_snand_read_page;
+    nand_chip->read_subpage = NULL; // disable NSS (not supported in MT6572)
     nand_chip->ecc.write_oob = mtk_snand_write_oob;
     nand_chip->ecc.read_oob = mtk_snand_read_oob;
     nand_chip->block_markbad = mtk_snand_block_markbad;   // need to add nand_get_device()/nand_release_device().
@@ -5105,7 +5106,7 @@ static int mtk_snand_probe(struct platform_device *pdev)
     platform_set_drvdata(pdev, host);
 
     nand_chip->select_chip(mtd, 0);
-    #if defined(CONFIG_MTK_COMBO_NAND_SUPPORT)
+    #if defined(MTK_COMBO_NAND_SUPPORT)
     	nand_chip->chipsize -= (PART_SIZE_BMTPOOL);
     #else
 	    nand_chip->chipsize -= (BMT_POOL_SIZE) << nand_chip->phys_erase_shift;
@@ -5114,7 +5115,7 @@ static int mtk_snand_probe(struct platform_device *pdev)
 
     if (!g_bmt)
     {
-    		#if defined(CONFIG_MTK_COMBO_NAND_SUPPORT)
+    		#if defined(MTK_COMBO_NAND_SUPPORT)
     		if (!(g_bmt = init_bmt(nand_chip, ((PART_SIZE_BMTPOOL) >> nand_chip->phys_erase_shift))))
     		#else
         if (!(g_bmt = init_bmt(nand_chip, BMT_POOL_SIZE)))

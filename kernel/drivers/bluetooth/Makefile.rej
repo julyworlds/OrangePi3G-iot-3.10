@@ -1,0 +1,11 @@
+--- drivers/bluetooth/Makefile
++++ drivers/bluetooth/Makefile
+@@ -39,4 +40,8 @@ hci_uart-$(CONFIG_BT_HCIUART_BCM)	+= hci_bcm.o
+ hci_uart-$(CONFIG_BT_HCIUART_QCA)	+= hci_qca.o
+ hci_uart-objs				:= $(hci_uart-y)
+ 
++ccflags-y += -D WMT_IDC_SUPPORT=1 -D MTK_WCN_WMT_STP_EXP_SYMBOL_ABSTRACT -D MTK_WCN_REMOVE_KERNEL_MODULE -D CONFIG_MTK_WCN_ARM64
++ccflags-y += -Idrivers/misc/mediatek/connectivity/common/common_main/include
++ccflags-y += -Idrivers/misc/mediatek/connectivity/common/common_main/linux/include
++ccflags-y += -Idrivers/misc/mediatek/include/mt-plat
+ ccflags-y += -D__CHECK_ENDIAN__
