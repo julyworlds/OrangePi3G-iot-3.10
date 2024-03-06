@@ -17,7 +17,7 @@ systemctl stop ModemManager
 systemctl disable ModemManager.service
 systemctl disable ModemManager
 echo 3 > /proc/sys/kernel/printk
-sleep 10;
+sleep 3;
 mknod /dev/stpwmt c 190 0
 mknod /dev/stpgps c 191 0
 mknod /dev/stpbt  c 192 0

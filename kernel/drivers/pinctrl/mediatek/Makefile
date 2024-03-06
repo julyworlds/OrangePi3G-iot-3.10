@@ -1,3 +1,5 @@
+#subdir-ccflags-y += -D CONFIG_OF=1
+#ccflags-y += -D CONFIG_OF=1
 # Core
 obj-$(CONFIG_PINCTRL_MTK_COMMON)	+= pinctrl-mtk-common.o
 # obj-y	+= pinctrl-mtk-common.o

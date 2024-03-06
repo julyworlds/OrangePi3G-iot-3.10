@@ -61,7 +61,7 @@
 #include "AudDrv_Clk.h"
 #include "AudDrv_Kernel.h"
 #include "mt_soc_afe_control.h"
-#include <mach/mt_clkbuf_ctl.h>
+//#include <mach/mt_clkbuf_ctl.h>
 #include <sound/mt_soc_audio.h>
 
 #include <linux/kernel.h>
@@ -650,7 +650,7 @@ static ssize_t mt_soc_debug_write(struct file *f, const char __user *buf,
         ret = strict_strtoul(token3, 16, &regaddr);
         ret =  strict_strtoul(token5, 16, &regvalue);
         printk("%s regaddr = 0x%lu regvalue = 0x%lu\n", ParSetkeyAna, regaddr, regvalue);
-        clk_buf_ctrl(CLK_BUF_AUDIO, true);
+        //clk_buf_ctrl(CLK_BUF_AUDIO, true);
         AudDrv_Clk_On();
         audckbufEnable(true);
         Ana_Set_Reg(regaddr,  regvalue, 0xffffffff);

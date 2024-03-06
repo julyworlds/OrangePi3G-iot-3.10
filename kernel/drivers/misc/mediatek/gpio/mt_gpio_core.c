@@ -550,10 +550,10 @@ static int mt_gpio_probe(struct platform_device *dev)
 #ifdef CONFIG_OF
 	if (dev->dev.of_node) {
 		/* Setup IO addresses */
-		get_gpio_vbase(dev->dev.of_node);
+		//get_gpio_vbase(dev->dev.of_node);
 	}
 
-	get_io_cfg_vbase();
+	//get_io_cfg_vbase();
 #endif
 #ifdef CONFIG_MD32_SUPPORT
 	md32_gpio_handle_init();
@@ -640,7 +640,6 @@ static struct platform_driver gpio_driver = {
 #ifdef CONFIG_OF
 struct device_node *get_gpio_np(void)
 {
-    gpio_vbase.gpio_regs = NULL;
 	struct device_node *np_gpio;
 	np_gpio = of_find_compatible_node(NULL, NULL, apgpio_of_ids[0].compatible);
 	if(np_gpio == NULL) {

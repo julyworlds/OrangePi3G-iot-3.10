@@ -65,7 +65,7 @@
 #include <mach/mt_pmic_wrap.h>
 #include <mach/mt_gpio.h>
 #include <linux/time.h>
-#include <mach/pmic_mt6331_6332_sw.h>
+//#include <mach/pmic_mt6331_6332_sw.h>
 #include <cust_pmic.h>
 #include <cust_battery_meter.h>
 #include <linux/dma-mapping.h>
@@ -352,7 +352,8 @@ static int Audio_HP_ImpeDance_Set(struct snd_kcontrol *kcontrol,
         EnableTrimbuffer(true);
         msleep(5);
 #ifndef CONFIG_MTK_FPGA
-        mAuxAdc_Offset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+        //mAuxAdc_Offset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+        mAuxAdc_Offset = 0;
 #else
         mAuxAdc_Offset = 0;
 #endif
@@ -410,7 +411,8 @@ static int Audio_HP_ImpeDance_Set(struct snd_kcontrol *kcontrol,
             //memset((void *)Get_Afe_SramBase_Pointer(), ucontrol->value.integer.value[0], AFE_INTERNAL_SRAM_SIZE);
             msleep(20);
 #ifndef CONFIG_MTK_FPGA
-            dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+            //dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+            dcoffset = 0;
 #else
             dcoffset = 0;
 #endif
@@ -524,9 +526,12 @@ static void ApplyDctoDl(void)
             //get adc value
             msleep(1);
 #ifndef CONFIG_MTK_FPGA
-            dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            dcoffset = 0;
+            dcoffset2 = 0;
+            dcoffset3 = 0;
 #else
             dcoffset = 0;
             dcoffset2 = 0;
@@ -544,9 +549,12 @@ static void ApplyDctoDl(void)
             //get adc value
             msleep(1);
 #ifndef CONFIG_MTK_FPGA
-            dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            dcoffset = 0;
+            dcoffset2 = 0;
+            dcoffset3 = 0;
 #else
             dcoffset = 0;
             dcoffset2 = 0;
@@ -565,9 +573,12 @@ static void ApplyDctoDl(void)
             //get adc value
             msleep(1);
 #ifndef CONFIG_MTK_FPGA
-            dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
-            dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset2 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            // dcoffset3 = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, 5, 0);
+            dcoffset = 0;
+            dcoffset2 = 0;
+            dcoffset3 = 0;
 #else
             dcoffset = 0;
             dcoffset2 = 0;

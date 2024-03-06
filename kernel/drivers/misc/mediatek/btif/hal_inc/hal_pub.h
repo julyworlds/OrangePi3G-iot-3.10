@@ -195,13 +195,12 @@ typedef struct _MTK_BTIF_IRQ_STR_ {
 	unsigned int irq_id;
 #ifdef CONFIG_OF
 	unsigned int irq_flags;
-#else
+#endif
 	ENUM_IRQ_SENS_TYPE sens_type;
 	union {
 		ENUM_IRQ_LVL lvl_type;
 		ENUM_IRQ_EDGE edge_type;
 	};
-#endif
 	bool reg_flag;
 	irq_handler_t p_irq_handler;
 } MTK_BTIF_IRQ_STR, *P_MTK_BTIF_IRQ_STR;

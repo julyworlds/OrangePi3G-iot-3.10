@@ -870,7 +870,8 @@ static int mtk_gpio_get(struct gpio_chip *chip, unsigned offset)
 static int mtk_gpio_to_irq(struct gpio_chip *chip, unsigned offset)
 {
    printk("fwq pinctrl mtk_gpio_to_irq pin=%d\n",offset);
-   return mt_gpio_to_irq(offset);
+   return 0;
+   //return mt_gpio_to_irq(offset);
 }
 static int mtk_gpio_set_debounce(struct gpio_chip *chip, unsigned offset,
 	unsigned debounce)

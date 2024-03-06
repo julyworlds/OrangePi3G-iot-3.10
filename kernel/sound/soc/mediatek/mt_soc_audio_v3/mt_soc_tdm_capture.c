@@ -85,7 +85,7 @@
 #include <mach/mt_reg_base.h>
 #include <asm/div64.h>
 #include <linux/aee.h>
-#include <mach/pmic_mt6325_sw.h>
+//#include <mach/pmic_mt6325_sw.h>
 #include <mach/upmu_common.h>
 #include <mach/upmu_hw.h>
 #include <mach/mt_gpio.h>

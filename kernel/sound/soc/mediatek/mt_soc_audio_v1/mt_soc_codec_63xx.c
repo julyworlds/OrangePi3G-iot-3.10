@@ -64,7 +64,7 @@
 #include "AudDrv_Ana.h"
 #include "AudDrv_Clk.h"
 #include "mt_soc_analog_type.h"
-#include <mach/mt_clkbuf_ctl.h>
+//#include <mach/mt_clkbuf_ctl.h>
 #include <sound/mt_soc_audio.h>
 #include <mach/vow_api.h>
 #ifdef CONFIG_MTK_SPEAKER
@@ -76,15 +76,15 @@
 //#define VOW_TONE_TEST
 
 #ifndef CONFIG_MTK_FPGA
-extern void mt6331_upmu_set_rg_audmicbias1lowpen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audmicbias1dcswnen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audmicbias1dcswpen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audpwdbmicbias1(kal_uint32 val);
-
-extern void mt6331_upmu_set_rg_audmicbias0lowpen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audmicbias0dcswnen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audmicbias0dcswpen(kal_uint32 val);
-extern void mt6331_upmu_set_rg_audpwdbmicbias0(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audmicbias1lowpen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audmicbias1dcswnen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audmicbias1dcswpen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audpwdbmicbias1(kal_uint32 val);
+// 
+// extern void mt6331_upmu_set_rg_audmicbias0lowpen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audmicbias0dcswnen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audmicbias0dcswpen(kal_uint32 val);
+// extern void mt6331_upmu_set_rg_audpwdbmicbias0(kal_uint32 val);
 #endif
 
 // static function declaration
@@ -248,9 +248,9 @@ void audckbufEnable(bool enable)
     {
         if (audck_buf_Count == 0)
         {
-            printk("+clk_buf_ctrl(CLK_BUF_AUDIO,true)\n");
-            clk_buf_ctrl(CLK_BUF_AUDIO, true);
-            printk("-clk_buf_ctrl(CLK_BUF_AUDIO,true)\n");
+            // printk("+clk_buf_ctrl(CLK_BUF_AUDIO,true)\n");
+            // clk_buf_ctrl(CLK_BUF_AUDIO, true);
+            // printk("-clk_buf_ctrl(CLK_BUF_AUDIO,true)\n");
         }
         audck_buf_Count++;
     }
@@ -259,9 +259,9 @@ void audckbufEnable(bool enable)
         audck_buf_Count--;
         if (audck_buf_Count == 0)
         {
-            printk("+clk_buf_ctrl(CLK_BUF_AUDIO,false)\n");
-            clk_buf_ctrl(CLK_BUF_AUDIO, false);
-            printk("-clk_buf_ctrl(CLK_BUF_AUDIO,false)\n");
+            // printk("+clk_buf_ctrl(CLK_BUF_AUDIO,false)\n");
+            // clk_buf_ctrl(CLK_BUF_AUDIO, false);
+            // printk("-clk_buf_ctrl(CLK_BUF_AUDIO,false)\n");
         }
         if (audck_buf_Count < 0)
         {
@@ -816,13 +816,13 @@ static void SetDCcoupleNP(int ADCType, int mode)
         {
             if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC1)
             {
-                mt6331_upmu_set_rg_audmicbias0dcswnen(false); // mic0 DC N external
-                mt6331_upmu_set_rg_audmicbias0dcswpen(false); // mic0 DC P external
+                // mt6331_upmu_set_rg_audmicbias0dcswnen(false); // mic0 DC N external
+                // mt6331_upmu_set_rg_audmicbias0dcswpen(false); // mic0 DC P external
             }
             else if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC2)
             {
-                mt6331_upmu_set_rg_audmicbias1dcswnen(false); // mic0 DC N external
-                mt6331_upmu_set_rg_audmicbias1dcswpen(false); // mic0 DC P external
+                // mt6331_upmu_set_rg_audmicbias1dcswnen(false); // mic0 DC N external
+                // mt6331_upmu_set_rg_audmicbias1dcswpen(false); // mic0 DC P external
             }
         }
         break;
@@ -830,13 +830,13 @@ static void SetDCcoupleNP(int ADCType, int mode)
         {
             if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC1)
             {
-                mt6331_upmu_set_rg_audmicbias0dcswnen(true); // mic0 DC N internal
-                mt6331_upmu_set_rg_audmicbias0dcswpen(true); // mic0 DC P internal
+                // mt6331_upmu_set_rg_audmicbias0dcswnen(true); // mic0 DC N internal
+                // mt6331_upmu_set_rg_audmicbias0dcswpen(true); // mic0 DC P internal
             }
             else if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC2)
             {
-                mt6331_upmu_set_rg_audmicbias1dcswnen(true); // mic0 DC N internal
-                mt6331_upmu_set_rg_audmicbias1dcswpen(true); // mic0 DC P internal
+                // mt6331_upmu_set_rg_audmicbias1dcswnen(true); // mic0 DC N internal
+                // mt6331_upmu_set_rg_audmicbias1dcswpen(true); // mic0 DC P internal
             }
         }
         break;
@@ -844,13 +844,13 @@ static void SetDCcoupleNP(int ADCType, int mode)
         {
             if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC1)
             {
-                mt6331_upmu_set_rg_audmicbias0dcswnen(false); // mic0 DC N internal
-                mt6331_upmu_set_rg_audmicbias0dcswpen(true); // mic0 DC P internal
+                // mt6331_upmu_set_rg_audmicbias0dcswnen(false); // mic0 DC N internal
+                // mt6331_upmu_set_rg_audmicbias0dcswpen(true); // mic0 DC P internal
             }
             else if (ADCType == AUDIO_ANALOG_DEVICE_IN_ADC2)
             {
-                mt6331_upmu_set_rg_audmicbias1dcswnen(true); // mic0 DC N internal
-                mt6331_upmu_set_rg_audmicbias1dcswpen(false); // mic0 DC P internal
+                // mt6331_upmu_set_rg_audmicbias1dcswnen(true); // mic0 DC N internal
+                // mt6331_upmu_set_rg_audmicbias1dcswpen(false); // mic0 DC P internal
             }
         }
         break;
@@ -963,12 +963,12 @@ static void OpenMicbias1(bool bEnable)
 #ifndef CONFIG_MTK_FPGA
     if (bEnable == true)
     {
-        mt6331_upmu_set_rg_audpwdbmicbias1(true); // mic bias power 1 on
+        //mt6331_upmu_set_rg_audpwdbmicbias1(true); // mic bias power 1 on
     }
     else
     {
-        mt6331_upmu_set_rg_audmicbias1lowpen(true); // mic 1 low power mode
-        mt6331_upmu_set_rg_audpwdbmicbias1(false); // mic bias power 1 off
+        // mt6331_upmu_set_rg_audmicbias1lowpen(true); // mic 1 low power mode
+        // mt6331_upmu_set_rg_audpwdbmicbias1(false); // mic bias power 1 off
     }
 #endif
 }
@@ -976,7 +976,7 @@ static void OpenMicbias1(bool bEnable)
 static void SetMicbias1lowpower(bool benable)
 {
 #ifndef CONFIG_MTK_FPGA
-    mt6331_upmu_set_rg_audmicbias1lowpen(benable); // mic 1 power mode
+    //mt6331_upmu_set_rg_audmicbias1lowpen(benable); // mic 1 power mode
 #endif
 }
 
@@ -986,13 +986,13 @@ static void OpenMicbias0(bool bEanble)
 #ifndef CONFIG_MTK_FPGA
     if (bEanble == true)
     {
-        mt6331_upmu_set_rg_audpwdbmicbias0(true); // mic bias power 0 on
-        mt6331_upmu_set_rg_audmicbias0vref(0x2); // set to 1.9V
+        // mt6331_upmu_set_rg_audpwdbmicbias0(true); // mic bias power 0 on
+        //mt6331_upmu_set_rg_audmicbias0vref(0x2); // set to 1.9V
     }
     else
     {
-        mt6331_upmu_set_rg_audmicbias0lowpen(true); // mic 0 low power mode
-        mt6331_upmu_set_rg_audpwdbmicbias0(false); // mic bias power 0 off
+        // mt6331_upmu_set_rg_audmicbias0lowpen(true); // mic 0 low power mode
+        // mt6331_upmu_set_rg_audpwdbmicbias0(false); // mic bias power 0 off
     }
 #endif
 }
@@ -1000,7 +1000,7 @@ static void OpenMicbias0(bool bEanble)
 static void SetMicbias0lowpower(bool benable)
 {
 #ifndef CONFIG_MTK_FPGA
-    mt6331_upmu_set_rg_audmicbias0lowpen(benable); // mic 1 power mode
+    // mt6331_upmu_set_rg_audmicbias0lowpen(benable); // mic 1 power mode
 #endif
 }
 
@@ -5432,8 +5432,8 @@ static void mt6331_codec_init_reg(struct snd_soc_codec *codec)
     Ana_Set_Reg(AUDBUF_CFG0,  0xE000 , 0xe000); //Disable voice DriverVer_type
     // set to lowe power mode
 #ifndef CONFIG_MTK_FPGA
-    mt6331_upmu_set_rg_audmicbias1lowpen(true); // mic 1 low power mode
-    mt6331_upmu_set_rg_audmicbias0lowpen(true); // mic 1 low power mode
+    // mt6331_upmu_set_rg_audmicbias1lowpen(true); // mic 1 low power mode
+    // mt6331_upmu_set_rg_audmicbias0lowpen(true); // mic 1 low power mode
 #endif
     Ana_Set_Reg(AUDMICBIAS_CFG1, 0x2020, 0xffff);   //power on clock
     Ana_Set_Reg(AFE_ADDA2_UL_SRC_CON1_L, 0xA000, 0xffff);   //power on clock

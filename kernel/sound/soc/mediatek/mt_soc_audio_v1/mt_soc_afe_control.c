@@ -461,7 +461,7 @@ bool InitAfeControl(void)
 
     // set APLL clock setting
     AfeControlMutexUnLock();
-    mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_00);
+    //mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_00);
     return true;
 }
 
@@ -840,7 +840,7 @@ void EnableApll1(bool bEnable)
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x07000000, 0x0f000000);
             AudDrv_APLL22M_Clk_On();
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x0, 0x3);
-            enable_mux(MT_MUX_AUD1, "AUDIO");
+            //enable_mux(MT_MUX_AUD1, "AUDIO");
         }
         APLL1State++;
     }
@@ -849,7 +849,7 @@ void EnableApll1(bool bEnable)
         APLL1State--;
         if (APLL1State == 0)
         {
-            disable_mux(MT_MUX_AUD1, "AUDIO");
+            //disable_mux(MT_MUX_AUD1, "AUDIO");
             AudDrv_APLL22M_Clk_Off();
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x3, 0x3);
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x07000000, 0x0f000000);
@@ -877,7 +877,7 @@ void EnableApll2(bool bEnable)
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x70000000, 0xf0000000);
             AudDrv_APLL24M_Clk_On();
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x0, 0xc);
-            enable_mux(MT_MUX_AUD2, "AUDIO");
+            //enable_mux(MT_MUX_AUD2, "AUDIO");
         }
         APLL2State++;
     }
@@ -886,7 +886,7 @@ void EnableApll2(bool bEnable)
         APLL2State--;
         if(APLL2State ==0)
         {
-            disable_mux(MT_MUX_AUD2, "AUDIO");
+            //disable_mux(MT_MUX_AUD2, "AUDIO");
             AudDrv_APLL24M_Clk_Off();
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0xc, 0xc);
             SetClkCfg(AUDIO_CLK_AUDDIV_0, 0x70000000, 0xf0000000);
@@ -936,11 +936,11 @@ void EnableAfe(bool bEnable)
     if (false == bEnable && false == MemEnable)
     {
         Afe_Set_Reg(AFE_DAC_CON0, 0x0, 0x0); // TODO(Chipeng, Harvey): check open/close in pairs
-        mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_00);
+        //mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_00);
     }
     else if (true == bEnable && true == MemEnable)
     {
-        mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_01);
+        //mt_set_gpio_mode(GPIO_AUD_CLK_MOSI_PIN , GPIO_MODE_01);
         Afe_Set_Reg(AFE_DAC_CON0, 0x1, 0x1);
     }
     spin_unlock_irqrestore(&afe_control_lock, flags);

@@ -2588,11 +2588,11 @@ static int mtk_uart_init_ports(void)
     spin_lock_init(&mtk_console_lock);
 
 #ifdef CONFIG_OF
-    apdma_uart0_base = get_apdma_uart0_base();
+    //apdma_uart0_base = get_apdma_uart0_base();
 #endif
     for (i = 0; i < UART_NR; i++) {
 #ifdef CONFIG_OF
-        set_uart_default_settings(i);
+        //set_uart_default_settings(i);
 #endif
         uart = &mtk_uarts[i];        
         uart->setting = get_uart_default_settings(i);
@@ -2603,7 +2603,7 @@ static int mtk_uart_init_ports(void)
 			for (idx = i*2; idx < i*2 + 2; idx++) {
 			    vfifo = &mtk_uart_vfifo_port[idx];
 			    vfifo->base = (apdma_uart0_base+0x0080*idx);
-			    vfifo->irq_id = get_uart_vfifo_irq_id(idx);
+			    //vfifo->irq_id = get_uart_vfifo_irq_id(idx);
 			}
 		}
 	}

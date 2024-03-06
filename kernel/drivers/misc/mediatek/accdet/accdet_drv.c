@@ -86,7 +86,7 @@ static struct dev_pm_ops accdet_pm_ops = {
 };
 #endif
 
-#if defined(CONFIG_OF)
+#if 0 // defined(CONFIG_OF)
 struct platform_device accdet_device = {
 	.name	  ="Accdet_Driver",
 	.id		  = -1,
@@ -121,7 +121,7 @@ static int accdet_mod_init(void)
 
 	ACCDET_DEBUG_DRV("[Accdet]accdet_mod_init begin!\n");
 
-#if defined(CONFIG_OF)
+#if 0 //defined(CONFIG_OF)
     ret = platform_device_register(&accdet_device);
     printk("[%s]: accdet_device, retval=%d \n!", __func__, ret);
 

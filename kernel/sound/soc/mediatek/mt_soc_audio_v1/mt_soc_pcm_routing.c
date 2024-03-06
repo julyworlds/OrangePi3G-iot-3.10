@@ -393,10 +393,10 @@ static void Auddrv_I2S1GpioSet(void)
     mt_set_gpio_mode(I2S1SettingD00->Gpio_Number, I2S1Settingws->Gpio_Mode);
     mt_set_gpio_mode(I2S1SettingMclk->Gpio_Number, I2S1Settingws->Gpio_Mode);
 #else
-    mt_set_gpio_mode(GPIO_I2S1_CK_PIN, GPIO_MODE_01);
-    mt_set_gpio_mode(GPIO_I2S1_DAT_PIN, GPIO_MODE_01);
-    mt_set_gpio_mode(GPIO_I2S1_MCLK_PIN, GPIO_MODE_01);
-    mt_set_gpio_mode(GPIO_I2S1_WS_PIN, GPIO_MODE_01);
+    // mt_set_gpio_mode(GPIO_I2S1_CK_PIN, GPIO_MODE_01);
+    // mt_set_gpio_mode(GPIO_I2S1_DAT_PIN, GPIO_MODE_01);
+    // mt_set_gpio_mode(GPIO_I2S1_MCLK_PIN, GPIO_MODE_01);
+    // mt_set_gpio_mode(GPIO_I2S1_WS_PIN, GPIO_MODE_01);
 #endif
 }
 
@@ -414,10 +414,10 @@ static void Auddrv_I2S1GpioReset(void)
     mt_set_gpio_mode(I2S1SettingMclk->Gpio_Number, 0);
 
 #else
-    mt_set_gpio_mode(GPIO_I2S1_CK_PIN, GPIO_MODE_00);
-    mt_set_gpio_mode(GPIO_I2S1_DAT_PIN, GPIO_MODE_00);
-    mt_set_gpio_mode(GPIO_I2S1_MCLK_PIN, GPIO_MODE_00);
-    mt_set_gpio_mode(GPIO_I2S1_WS_PIN, GPIO_MODE_00);
+    //mt_set_gpio_mode(GPIO_I2S1_CK_PIN, GPIO_MODE_00);
+    //mt_set_gpio_mode(GPIO_I2S1_DAT_PIN, GPIO_MODE_00);
+    //mt_set_gpio_mode(GPIO_I2S1_MCLK_PIN, GPIO_MODE_00);
+    //mt_set_gpio_mode(GPIO_I2S1_WS_PIN, GPIO_MODE_00);
 #endif
 }
 
@@ -544,7 +544,8 @@ static void GetAudioTrimOffset(int channels)
     EnableTrimbuffer(true);
     msleep(1);
 #ifndef CONFIG_MTK_FPGA
-    Buffer_offl_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+    //Buffer_offl_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+    Buffer_offl_value = 0;
 #else
     Buffer_offl_value = 0;
 #endif
@@ -558,7 +559,8 @@ static void GetAudioTrimOffset(int channels)
     EnableTrimbuffer(true);
     msleep(5);
 #ifndef CONFIG_MTK_FPGA
-    Buffer_offr_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+    //Buffer_offr_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, off_counter, 0);
+    Buffer_offl_value = 0;
 #else
     Buffer_offr_value = 0;
 #endif
@@ -600,7 +602,8 @@ static void GetAudioTrimOffset(int channels)
     //int value = 0;
     msleep(10);
 #ifndef CONFIG_MTK_FPGA
-    Buffer_on_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, on_counter, 0);
+    //Buffer_on_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, on_counter, 0);
+    Buffer_offl_value = 0;
 #else
     Buffer_on_value = 0;
 #endif
@@ -615,7 +618,8 @@ static void GetAudioTrimOffset(int channels)
     EnableTrimbuffer(true);
     msleep(10);
 #ifndef CONFIG_MTK_FPGA
-    Buffer_on_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, on_counter, 0);
+    //Buffer_on_value = PMIC_IMM_GetOneChannelValue(AUX_HP_AP, on_counter, 0);
+    Buffer_offl_value = 0;
 #else
     Buffer_on_value = 0;
 #endif

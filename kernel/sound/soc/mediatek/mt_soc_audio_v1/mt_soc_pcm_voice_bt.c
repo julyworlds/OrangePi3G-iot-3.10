@@ -366,7 +366,7 @@ static int mtk_voice_bt_pm_ops_suspend(struct device *device)
     AudDrv_Clk_Off();
     if (b_modem1_speech_on == true || b_modem2_speech_on == true)
     {
-        clkmux_sel(MT_MUX_AUDINTBUS, 0, "AUDIO"); //select 26M
+        //clkmux_sel(MT_MUX_AUDINTBUS, 0, "AUDIO"); //select 26M
         return 0;
     }
     return 0;
@@ -382,7 +382,7 @@ static int mtk_voice_bt_pm_ops_resume(struct device *device)
     AudDrv_Clk_Off();
     if (b_modem1_speech_on == true || b_modem2_speech_on == true)
     {
-        clkmux_sel(MT_MUX_AUDINTBUS, 1, "AUDIO"); //mainpll
+        //clkmux_sel(MT_MUX_AUDINTBUS, 1, "AUDIO"); //mainpll
         return 0;
     }
     return 0;

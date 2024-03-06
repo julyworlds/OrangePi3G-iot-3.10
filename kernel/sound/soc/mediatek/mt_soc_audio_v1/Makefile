@@ -3,6 +3,13 @@
 include $(srctree)/drivers/misc/mediatek/Makefile.custom
 
 EXTRA_CFLAGS := -I$(src)/../common
+#ccflags-y += -D CONFIG_OF=1
+ccflags-y += -I$(srctree)/arch/arm/mach-mt6572/golf/dct/dct/inc/ \
+	-I$(srctree)/arch/arm/mach-mt6572/golf/power/ \
+	-I$(srctree)/backports/backport-include/ \
+	-I$(srctree)/backports/backport-include/uapi \
+	-I$(srctree)/backports/include/ \
+	-I$(srctree)/backports/include/uapi
 
 obj-$(CONFIG_MT_SND_SOC_V1) += AudDrv_Afe.o AudDrv_Ana.o AudDrv_Clk.o
 obj-$(CONFIG_MT_SND_SOC_V1) += mt_soc_afe_control.o mt_soc_afe_connection.o mt_soc_pcm_common.o

@@ -1410,10 +1410,12 @@ static struct platform_device ssw_device = {
 /*=======================================================================*/
 /* battery driver                                                         */
 /*=======================================================================*/
+#if !defined(CONFIG_OF)
 struct platform_device battery_device = {
     .name   = "battery",
     .id        = -1,
 };
+#endif
 
 /*=======================================================================*/
 
@@ -1685,7 +1687,7 @@ __init int mt_board_init(void)
   }
 #endif
 
-#if defined(CONFIG_MTK_ACCDET)
+#if defined(CONFIG_MTK_ACCDET) 
 
 
     retval = platform_device_register(&accdet_device);
@@ -1841,7 +1843,7 @@ __init int mt_board_init(void)
 #endif
 
 /* battery_device must be behind the mt_device_usb for charger type detection */
-#if 1
+#if !defined(CONFIG_OF)
    retval = platform_device_register(&battery_device);
    if (retval) {
 	   printk("[battery_driver] Unable to device register\n");

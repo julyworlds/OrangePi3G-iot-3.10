@@ -67,7 +67,7 @@
 #include <mach/mt_pmic_wrap.h>
 #include <mach/mt_gpio.h>
 #include <linux/time.h>
-#include <mach/pmic_mt6325_sw.h>
+//#include <mach/pmic_mt6325_sw.h>
 #include <cust_pmic.h>
 #include <cust_battery_meter.h>
 #if !defined(CONFIG_MTK_LEGACY)

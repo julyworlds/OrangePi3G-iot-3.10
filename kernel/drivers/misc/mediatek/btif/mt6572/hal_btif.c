@@ -1195,7 +1195,7 @@ int hal_btif_pm_ops(P_MTK_BTIF_INFO_STR p_btif_info, MTK_BTIF_PM_OPID opid)
 		break;
 	case BTIF_PM_RESTORE_NOIRQ:{
 			unsigned int flag = 0;
-			P_MTK_BTIF_IRQ_STR p_irq = p_btif_info->p_irq;
+			MTK_BTIF_IRQ_STR* p_irq = p_btif_info->p_irq;
 			switch (p_irq->sens_type) {
 			case IRQ_SENS_EDGE:
 				if (IRQ_EDGE_FALL == p_irq->edge_type)

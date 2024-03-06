@@ -154,9 +154,9 @@ void AudDrv_Clk_On(void)
     {
         printk("-----------AudDrv_Clk_On, Aud_AFE_Clk_cntr:%d \n", Aud_AFE_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (enable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+        if (enable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
         {
-            printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_AFE fail !!!\n");
+            printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_SW_CG fail !!!\n");
         }
 #else
         Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 0x00004000, 0xffffffff);
@@ -180,9 +180,9 @@ void AudDrv_Clk_Off(void)
         {
             // Disable AFE clock
 #ifdef PM_MANAGER_API
-            if (disable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+            if (disable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
             {
-                printk(ANDROID_LOG_ERROR, "Sound", "disable_clock MT_CG_AUDIO_AFE fail");
+                printk(ANDROID_LOG_ERROR, "Sound", "disable_clock MT_CG_AUDIO_SW_CG fail");
             }
 #else
 
@@ -308,10 +308,10 @@ void AudDrv_ADC2_Clk_On(void)
     {
         PRINTK_AUDDRV("+%s  enable_clock ADC clk(%x)\n", __func__, Aud_ADC2_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (enable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // if (enable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
         Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 0 << 23 , 1 << 23); //temp hard code setting, after confirm with enable clock usage, this could be removed.
     }
@@ -327,12 +327,12 @@ void AudDrv_ADC2_Clk_Off(void)
     if (Aud_ADC2_Clk_cntr == 0)
     {
         PRINTK_AUDDRV("+%s disable_clock ADC clk(%x)\n", __func__, Aud_ADC2_Clk_cntr);
-        Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 1 << 23 , 1 << 23); //temp hard code setting, after confirm with enable clock usage, this could be removed.
+        // Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 1 << 23 , 1 << 23); //temp hard code setting, after confirm with enable clock usage, this could be removed.
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
     }
     if (Aud_ADC2_Clk_cntr < 0)
@@ -363,10 +363,10 @@ void AudDrv_ADC3_Clk_On(void)
     {
         PRINTK_AUDDRV("+%s  enable_clock ADC clk(%x)\n", __func__, Aud_ADC3_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
     }
     Aud_ADC2_Clk_cntr++;
@@ -382,10 +382,10 @@ void AudDrv_ADC3_Clk_Off(void)
     {
         PRINTK_AUDDRV("+%s disable_clock ADC clk(%x)\n", __func__, Aud_ADC3_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // if (disable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
     }
     if (Aud_ADC3_Clk_cntr < 0)
@@ -417,17 +417,17 @@ void AudDrv_APLL22M_Clk_On(void)
         PRINTK_AUDDRV("+%s  enable_clock ADC clk(%x)\n", __func__, Aud_APLL22M_Clk_cntr);
 #ifdef PM_MANAGER_API
 
-        enable_mux(MT_MUX_AUD1, "AUDIO");
-        clkmux_sel(MT_MUX_AUD1, 1 , "AUDIO"); //select APLL1
+        // enable_mux(MT_MUX_AUD1, "AUDIO");
+        // clkmux_sel(MT_MUX_AUD1, 1 , "AUDIO"); //select APLL1
 
-        if (enable_clock(MT_CG_AUDIO_22M, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-        if (enable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // if (enable_clock(MT_CG_AUDIO_22M, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // if (enable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
     }
     Aud_APLL22M_Clk_cntr++;
@@ -442,16 +442,16 @@ void AudDrv_APLL22M_Clk_Off(void)
     {
         PRINTK_AUDDRV("+%s disable_clock ADC clk(%x)\n", __func__, Aud_APLL22M_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_22M, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-        if (disable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-        clkmux_sel(MT_MUX_AUD1, 0, "AUDIO"); //select 26M
-        disable_mux(MT_MUX_AUD1, "AUDIO");
+        // if (disable_clock(MT_CG_AUDIO_22M, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // if (disable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // clkmux_sel(MT_MUX_AUD1, 0, "AUDIO"); //select 26M
+        // disable_mux(MT_MUX_AUD1, "AUDIO");
 #endif
     }
     if (Aud_APLL22M_Clk_cntr < 0)
@@ -480,16 +480,16 @@ void AudDrv_APLL24M_Clk_On(void)
     {
         PRINTK_AUDDRV("+%s  enable_clock ADC clk(%x)\n", __func__, Aud_APLL24M_Clk_cntr);
 #ifdef PM_MANAGER_API
-        enable_mux(MT_MUX_AUD2, "AUDIO");
-        clkmux_sel(MT_MUX_AUD2, 1, "AUDIO"); //APLL2
-        if (enable_clock(MT_CG_AUDIO_24M, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-        if (enable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
+        // enable_mux(MT_MUX_AUD2, "AUDIO");
+        // clkmux_sel(MT_MUX_AUD2, 1, "AUDIO"); //APLL2
+        // if (enable_clock(MT_CG_AUDIO_24M, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // if (enable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
 #endif
     }
     Aud_APLL24M_Clk_cntr++;
@@ -504,17 +504,17 @@ void AudDrv_APLL24M_Clk_Off(void)
     {
         PRINTK_AUDDRV("+%s disable_clock ADC clk(%x)\n", __func__, Aud_APLL24M_Clk_cntr);
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_24M, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-        if (disable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
-        {
-            PRINTK_AUD_CLK("%s fail", __func__);
-        }
-
-        clkmux_sel(MT_MUX_AUD2, 0, "AUDIO"); //select 26M
-        disable_mux(MT_MUX_AUD2, "AUDIO");
+        // if (disable_clock(MT_CG_AUDIO_24M, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // if (disable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
+        // {
+        //     PRINTK_AUD_CLK("%s fail", __func__);
+        // }
+        // 
+        // clkmux_sel(MT_MUX_AUD2, 0, "AUDIO"); //select 26M
+        // disable_mux(MT_MUX_AUD2, "AUDIO");
 #endif
     }
     if (Aud_APLL24M_Clk_cntr < 0)
@@ -542,7 +542,7 @@ void AudDrv_I2S_Clk_On(void)
     if (Aud_I2S_Clk_cntr == 0)
     {
 #ifdef PM_MANAGER_API
-        if (enable_clock(MT_CG_AUDIO_I2S, "AUDIO"))
+        if (enable_clock(MT_CG_AUD_PDN_I2S_EN, "AUDIO"))
         {
             PRINTK_AUD_ERROR("Aud enable_clock MT65XX_PDN_AUDIO_I2S fail !!!\n");
         }
@@ -563,9 +563,9 @@ void AudDrv_I2S_Clk_Off(void)
     if (Aud_I2S_Clk_cntr == 0)
     {
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_I2S, "AUDIO"))
+        if (disable_clock(MT_CG_AUD_PDN_I2S_EN, "AUDIO"))
         {
-            PRINTK_AUD_ERROR("disable_clock MT_CG_AUDIO_I2S fail");
+            PRINTK_AUD_ERROR("disable_clock MT_CG_AUD_PDN_I2S_EN fail");
         }
 #else
         Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 0x00000000, 0x00000040);  //power off I2S clock
@@ -598,9 +598,9 @@ void AudDrv_Core_Clk_On(void)
     if (Aud_Core_Clk_cntr == 0)
     {
 #ifdef PM_MANAGER_API
-        if (enable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+        if (enable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
         {
-            PRINTK_AUD_ERROR("AudDrv_Core_Clk_On Aud enable_clock MT_CG_AUDIO_AFE fail !!!\n");
+            PRINTK_AUD_ERROR("AudDrv_Core_Clk_On Aud enable_clock MT_CG_AUDIO_SW_CG fail !!!\n");
         }
 #endif
     }
@@ -618,9 +618,9 @@ void AudDrv_Core_Clk_Off(void)
     if (Aud_Core_Clk_cntr == 0)
     {
 #ifdef PM_MANAGER_API
-        if (disable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+        if (disable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
         {
-            PRINTK_AUD_ERROR("AudDrv_Core_Clk_On Aud disable_clock MT_CG_AUDIO_AFE fail !!!\n");
+            PRINTK_AUD_ERROR("AudDrv_Core_Clk_On Aud disable_clock MT_CG_AUDIO_SW_CG fail !!!\n");
         }
 #endif
     }
@@ -756,16 +756,16 @@ void AudDrv_Suspend_Clk_Off(void)
 #ifdef PM_MANAGER_API
         if (Aud_AFE_Clk_cntr  > 0)
         {
-            if (disable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+            if (disable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
             {
-                printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_AFE fail !!!\n");
+                printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_SW_CG fail !!!\n");
             }
         }
         if (Aud_I2S_Clk_cntr > 0)
         {
-            if (disable_clock(MT_CG_AUDIO_I2S, "AUDIO"))
+            if (disable_clock(MT_CG_AUD_PDN_I2S_EN, "AUDIO"))
             {
-                PRINTK_AUD_ERROR("disable_clock MT_CG_AUDIO_I2S fail");
+                PRINTK_AUD_ERROR("disable_clock MT_CG_AUD_PDN_I2S_EN fail");
             }
         }
         if (Aud_ADC_Clk_cntr > 0)
@@ -773,20 +773,20 @@ void AudDrv_Suspend_Clk_Off(void)
             Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 1 << 24 , 1 << 24);
 
         }
-        if (Aud_ADC2_Clk_cntr > 0)
-        {
-            if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
-        if (Aud_ADC3_Clk_cntr > 0)
-        {
-            if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
+        // if (Aud_ADC2_Clk_cntr > 0)
+        // {
+        //     if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
+        // if (Aud_ADC3_Clk_cntr > 0)
+        // {
+        //     if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
         if (Aud_ANA_Clk_cntr > 0)
         {
 
@@ -795,32 +795,32 @@ void AudDrv_Suspend_Clk_Off(void)
         {
 
         }
-        if (Aud_APLL22M_Clk_cntr  > 0)
-        {
-            if (disable_clock(MT_CG_AUDIO_22M, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            if (disable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            clkmux_sel(MT_MUX_AUD1, 0, "AUDIO"); //select 26M
-            disable_mux(MT_MUX_AUD1, "AUDIO");
-        }
-        if (Aud_APLL24M_Clk_cntr > 0)
-        {
-            if (disable_clock(MT_CG_AUDIO_24M, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            if (disable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            clkmux_sel(MT_MUX_AUD2, 0, "AUDIO"); //select 26M
-            disable_mux(MT_MUX_AUD2, "AUDIO");
-        }
+        // if (Aud_APLL22M_Clk_cntr  > 0)
+        // {
+        //     if (disable_clock(MT_CG_AUDIO_22M, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     if (disable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     clkmux_sel(MT_MUX_AUD1, 0, "AUDIO"); //select 26M
+        //     disable_mux(MT_MUX_AUD1, "AUDIO");
+        // }
+        // if (Aud_APLL24M_Clk_cntr > 0)
+        // {
+        //     if (disable_clock(MT_CG_AUDIO_24M, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     if (disable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     clkmux_sel(MT_MUX_AUD2, 0, "AUDIO"); //select 26M
+        //     disable_mux(MT_MUX_AUD2, "AUDIO");
+        // }
 #endif
     }
     spin_unlock_irqrestore(&auddrv_Clk_lock, flags);
@@ -835,36 +835,36 @@ void AudDrv_Suspend_Clk_On(void)
 #ifdef PM_MANAGER_API
         if (Aud_AFE_Clk_cntr  > 0)
         {
-            if (enable_clock(MT_CG_AUDIO_AFE, "AUDIO"))
+            if (enable_clock(MT_CG_AUDIO_SW_CG, "AUDIO"))
             {
-                printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_AFE fail !!!\n");
+                printk(ANDROID_LOG_ERROR, "Sound", "Aud enable_clock MT_CG_AUDIO_SW_CG fail !!!\n");
             }
         }
         if (Aud_I2S_Clk_cntr > 0)
         {
-            if (enable_clock(MT_CG_AUDIO_I2S, "AUDIO"))
+            if (enable_clock(MT_CG_AUD_PDN_I2S_EN, "AUDIO"))
             {
-                PRINTK_AUD_ERROR("disable_clock MT_CG_AUDIO_I2S fail");
+                PRINTK_AUD_ERROR("disable_clock MT_CG_AUD_PDN_I2S_EN fail");
             }
         }
         if (Aud_ADC_Clk_cntr > 0)
         {
             Afe_Set_Reg(AUDIO_AUDIO_TOP_CON0, 0 << 24 , 1 << 24);
         }
-        if (Aud_ADC2_Clk_cntr > 0)
-        {
-            if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
-        if (Aud_ADC3_Clk_cntr > 0)
-        {
-            if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
+        // if (Aud_ADC2_Clk_cntr > 0)
+        // {
+        //     if (disable_clock(MT_CG_AUDIO_ADDA2, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
+        // if (Aud_ADC3_Clk_cntr > 0)
+        // {
+        //     if (enable_clock(MT_CG_AUDIO_ADDA3, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
         if (Aud_ANA_Clk_cntr > 0)
         {
 
@@ -873,34 +873,34 @@ void AudDrv_Suspend_Clk_On(void)
         {
 
         }
-        if (Aud_APLL22M_Clk_cntr  > 0)
-        {
-
-            enable_mux(MT_MUX_AUD1, "AUDIO");
-            clkmux_sel(MT_MUX_AUD1, 1 , "AUDIO"); //select APLL1
-
-            if (enable_clock(MT_CG_AUDIO_22M, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            if (enable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
-        if (Aud_APLL24M_Clk_cntr > 0)
-        {
-            enable_mux(MT_MUX_AUD2, "AUDIO");
-            clkmux_sel(MT_MUX_AUD2, 1, "AUDIO"); //APLL2
-            if (enable_clock(MT_CG_AUDIO_24M, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-            if (enable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
-            {
-                PRINTK_AUD_CLK("%s fail", __func__);
-            }
-        }
+        // if (Aud_APLL22M_Clk_cntr  > 0)
+        // {
+        // 
+        //     enable_mux(MT_MUX_AUD1, "AUDIO");
+        //     clkmux_sel(MT_MUX_AUD1, 1 , "AUDIO"); //select APLL1
+        // 
+        //     if (enable_clock(MT_CG_AUDIO_22M, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     if (enable_clock(MT_CG_AUDIO_APLL_TUNER, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
+        // if (Aud_APLL24M_Clk_cntr > 0)
+        // {
+        //     enable_mux(MT_MUX_AUD2, "AUDIO");
+        //     clkmux_sel(MT_MUX_AUD2, 1, "AUDIO"); //APLL2
+        //     if (enable_clock(MT_CG_AUDIO_24M, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        //     if (enable_clock(MT_CG_AUDIO_APLL2_TUNER, "AUDIO"))
+        //     {
+        //         PRINTK_AUD_CLK("%s fail", __func__);
+        //     }
+        // }
 #endif
     }
     spin_unlock_irqrestore(&auddrv_Clk_lock, flags);
@@ -911,8 +911,8 @@ void AudDrv_Emi_Clk_On(void)
     mutex_lock(&auddrv_pmic_mutex);
     if(Aud_EMI_cntr == 0)
     {
-        disable_dpidle_by_bit(MT_CG_AUDIO_AFE);
-        disable_soidle_by_bit(MT_CG_AUDIO_AFE);
+        disable_dpidle_by_bit(MT_CG_AUDIO_SW_CG);
+        // disable_soidle_by_bit(MT_CG_AUDIO_SW_CG);
     }
     Aud_EMI_cntr++;
     mutex_unlock(&auddrv_pmic_mutex);
@@ -923,8 +923,8 @@ void AudDrv_Emi_Clk_Off(void)
     Aud_EMI_cntr--;
     if(Aud_EMI_cntr ==0)
     {
-        enable_dpidle_by_bit(MT_CG_AUDIO_AFE);
-        enable_soidle_by_bit(MT_CG_AUDIO_AFE);
+        enable_dpidle_by_bit(MT_CG_AUDIO_SW_CG);
+        // enable_soidle_by_bit(MT_CG_AUDIO_SW_CG);
     }
 
     if(Aud_EMI_cntr <0 )

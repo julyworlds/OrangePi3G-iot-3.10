@@ -60,7 +60,7 @@
 #include "AudDrv_Ana.h"
 #include "AudDrv_Clk.h"
 #include "mt_soc_analog_type.h"
-#include <mach/pmic_mt6325_sw.h>
+//#include <mach/pmic_mt6325_sw.h>
 #include "mt_soc_pcm_common.h"
 
 /* static DEFINE_MUTEX(Speaker_Ctrl_Mutex); */
