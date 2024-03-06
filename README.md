@@ -6,7 +6,11 @@ Kernel 3.10 for Orangepi3G-iot
 - Wifi
 - Bluetooth
 - Sdcard access
+- USB
+- Docker compatible
 
 ## Not working
 - NAND access
+- Sound
+- Video
 - ...
